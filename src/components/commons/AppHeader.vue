@@ -21,6 +21,7 @@ const {settingsWebsiteToggle} = useWebStore()
     <q-tabs align="left">
       <q-route-tab to="/" label="Home"/>
       <q-route-tab to="/about" label="About"/>
+      <q-route-tab to="/employee" label="Employee site"/>
     </q-tabs>
   </q-header>
 </template>

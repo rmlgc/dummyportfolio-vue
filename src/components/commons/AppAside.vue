@@ -20,10 +20,10 @@ const link = ref('home')
               active-class="my-menu-link"
           >
             <q-item-section avatar>
-              <q-icon name="inbox"/>
+              <q-icon name="home"/>
             </q-item-section>
 
-            <q-item-section>Inbox</q-item-section>
+            <q-item-section>Home</q-item-section>
           </q-item>
 
           <q-item
@@ -35,10 +35,10 @@ const link = ref('home')
               active-class="my-menu-link"
           >
             <q-item-section avatar>
-              <q-icon name="send"/>
+              <q-icon name="sym_o_info"/>
             </q-item-section>
 
-            <q-item-section>Outbox</q-item-section>
+            <q-item-section>About</q-item-section>
           </q-item>
           <q-separator spaced/>
         </q-list>

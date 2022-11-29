@@ -12,6 +12,7 @@ export const useWebStore = defineStore({
     id: 'website',
     state: () => ({
         settingsWebsite,
+        title:'Dummyportfolio-vue',
         loading: false,
         error: null,
     }),

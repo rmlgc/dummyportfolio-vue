@@ -8,7 +8,6 @@ defineProps<{
   <section class="greetings flex justify-evenly container ">
     <div class="wrapper">
       <img alt="Vue logo" class="logo" src="@/assets/logo.svg" width="125" height="125"/><br>
-      <img alt="Quasar logo" class="logo" src="https://cdn.quasar.dev/logo-v2/svg/logo.svg" width="125" height="125"/>
     </div>
     <div class="wrapper">
       <h1 class="green text-h2">{{ msg }}</h1>
@@ -23,8 +22,8 @@ defineProps<{
         next?
       </h3>
     </div>
-    <img alt="Erre logo" class="logo" src="https://avatars.githubusercontent.com/u/22599950?s=125&v=5" width="125"
-         height="125"/>
+      <img alt="Quasar logo" class="logo" src="https://cdn.quasar.dev/logo-v2/svg/logo.svg" width="125" height="125"/>
+
   </section>
 </template>
 

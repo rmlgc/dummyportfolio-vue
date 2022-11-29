@@ -1,10 +1,23 @@
+<script setup>
+import MyLinktree from '@/components/commons/MyLinktree.vue'
+
+</script>
 <template>
-  <a href="https://linktr.ee/rommelgc" rel="noopener" target="_blank" class="footer text-amber text-center">
-    <img alt="Vue logo" class="logo" src="https://avatars.githubusercontent.com/u/22599950?s=50&v=5"/>
-    <p>
-      Rommel Garcia
-    </p>
-  </a>
+    <q-footer reveal elevated>
+        <q-toolbar>
+            <q-toolbar-title>
+                <q-avatar>
+                    <img src="https://cdn.quasar.dev/logo-v2/svg/logo-mono-white.svg">
+                </q-avatar>
+                <div>
+                    <a href="https://vitejs.dev/" target="_blank" rel="noopener">Vite</a> +
+                    <a href="https://vuejs.org/" target="_blank" rel="noopener">Vue 3</a> +
+                    <a href="https://quasar.dev/" target="_blank" rel="noopener"> Quasar</a>.
+                </div>
+            </q-toolbar-title>
+        </q-toolbar>
+        <MyLinktree/>
+    </q-footer>
 </template>
 <style scoped lang="scss">
 .footer {
