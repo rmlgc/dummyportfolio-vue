@@ -60,5 +60,8 @@ import MyLinktree from '@/components/commons/MyLinktree.vue'
     gap: 0px;
     flex-wrap: wrap;
     position: relative;
+    @media screen and (max-width: 700px) {
+        gap: 12px;
+    }
 }
 </style>

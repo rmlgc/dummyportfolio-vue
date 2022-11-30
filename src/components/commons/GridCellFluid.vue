@@ -9,15 +9,37 @@ const milisegundos = ref(2000)
 const milisegundosCss = ref(`${milisegundos.value}ms`)
 const imgCss = ref(null)
 
+const actualTopPositionCss = ref(getRndInteger(5, 90) + '%')
+const actualLeftPositionCss = ref(getRndInteger(5, 90) + '%')
+const randomTopPositionCss = ref(getRndInteger(5, 90) + '%')
+const randomLeftPositionCss = ref(getRndInteger(5, 90) + '%')
+const random2TopPositionCss = ref(getRndInteger(25, 80) + '%')
+const random2LeftPositionCss = ref(getRndInteger(25, 80) + '%')
+const animationClass = ['swing1', 'swing2']
+
+const randomSize1 = ref(getRndInteger(50, 385) + 'px')
+const randomSize2 = ref(getRndInteger(50, 385) + 'px')
+const randomSize3 = ref(getRndInteger(50, 385) + 'px')
+const randomSize4 = ref(getRndInteger(50, 385) + 'px')
+const randomSize5 = ref(getRndInteger(50, 385) + 'px')
+const randomSize6 = ref(getRndInteger(50, 385) + 'px')
+const randomSize7 = ref(getRndInteger(50, 385) + 'px')
+const randomSize8 = ref(getRndInteger(50, 385) + 'px')
+const beatSize1 = ref('150px')
+
 const props = defineProps({
     image: null,
     placeholderSrc: 'data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAJYAAACWBAMAAADOL2zRAAAAG1BMVEXMzMyWlpaqqqq3t7fFxcW+vr6xsbGjo6OcnJyLKnDGAAAACXBIWXMAAA7EAAAOxAGVKw4bAAABAElEQVRoge3SMW+DMBiE4YsxJqMJtHOTITPeOsLQnaodGImEUMZEkZhRUqn92f0MaTubtfeMh/QGHANEREREREREREREtIJJ0xbH299kp8l8FaGtLdTQ19HjofxZlJ0m1+eBKZcikd9PWtXC5DoDotRO04B9YOvFIXmXLy2jEbiqE6Df7DTleA5socLqvEFVxtJyrpZFWz/pHM2CVte0lS8g2eDe6prOyqPglhzROL+Xye4tmT4WvRcQ2/m81p+/rdguOi8Hc5L/8Qk4vhZzy08DduGt9eVQyP2qoTM1zi0/uf4hvBWf5c77e69Gf798y08L7j0RERERERERERH9P99ZpSVRivB/rgAAAABJRU5ErkJggg==',
     to: 'ddd',
 })
 
+function getRndInteger(min, max) {
+    return Math.floor(Math.random() * (max - min)) + min;
+}
+
 const {getScrollTarget, setVerticalScrollPosition} = scroll
 
-function resizeElement(event) {
+const resizeElement = (event) => {
 
     val.value = !val.value
     setTimeout(
@@ -31,6 +53,66 @@ function resizeElement(event) {
         , milisegundos.value - 500);
 }
 
+const mouseMove = (event) => {
+    //currentTarget
+    const elCell = event.target.closest('.grid-cell')
+    const elDragable = elCell.querySelector('.dragableHover')
+
+    const rect = elCell.getBoundingClientRect()
+
+    elDragable.style.top = (event.clientY - rect.top) + 'px'
+    elDragable.style.left = (event.clientX - rect.left) + 'px'
+    // console.log(animationClass[getRndInteger(0, 2)])
+    // console.log(elCell)
+    // console.log(elDragable)
+    // console.log(event)
+    // console.log(elCell)
+    // console.log(event.clientY - rect.top)
+
+}
+const mouseEnter = (event) => {
+    const elCell = event.target.closest('.grid-cell')
+    const elDragable = elCell.querySelector('.dragableHover')
+
+    elDragable.classList.remove('shake')
+    for (let i = 0; i < animationClass.length; i++) {
+        elDragable.classList.remove(animationClass[i])
+    }
+
+    elDragable.classList.add('shake')
+}
+const mouseLeave = (event) => {
+    const elCell = event.target.closest('.grid-cell')
+    const elDragable = elCell.querySelector('.dragableHover')
+    const rect = elCell.getBoundingClientRect()
+
+    elDragable.classList.remove('shake')
+    for (let i = 0; i < animationClass.length; i++) {
+        elDragable.classList.remove(animationClass[i])
+    }
+
+    actualTopPositionCss.value = (event.clientY - rect.top) + 'px'
+    actualLeftPositionCss.value = (event.clientX - rect.left) + 'px'
+    elDragable.classList.add(animationClass[getRndInteger(0, 2)])
+}
+
+const mouseDown = () => {
+    const elCell = event.target.closest('.grid-cell')
+    const elDragable = elCell.querySelector('.dragableHover')
+
+    console.log(elDragable.addEventListener("animationend", (el)=>{ console.log(el)}));
+
+    beatSize1.value = elDragable.style.height
+
+    elDragable.classList.add('beat')
+}
+
+const mouseUp = () => {
+    const elCell = event.target.closest('.grid-cell')
+    const elDragable = elCell.querySelector('.dragableHover')
+
+    elDragable.classList.remove('beat')
+}
 onMounted(() => {
 
     imgCss.value = `url(https://picsum.photos/10${root.value.__vueParentComponent.uid}/10${root.value.__vueParentComponent.uid})`
@@ -38,8 +120,11 @@ onMounted(() => {
 })
 </script>
 <template>
-    <div @click="resizeElement" ref="root"
+    <div @mouseup="mouseUp" @mousedown="mouseDown" @mouseenter="mouseEnter" @mouseleave="mouseLeave"
+         @mousemove="mouseMove" @click="resizeElement"
+         ref="root"
          :class="`grid-cell bg-animated cursor-pointer ${ val == true ? 'open' : '' }`">
+        <div :class="`dragableHover ${animationClass[getRndInteger(0, 2)]}`"></div>
         <div class="grid-cell-wrap bg-animated-i">
             <q-btn class="absolute-top-right q-mt-lg q-mr-lg" dense fab :size="`${ val == true ? '1.5rem' : '5rem' }`"
                    :icon="`${ val == true ? 'sym_o_close' : 'sym_s_touch_app' }`"/>
@@ -50,7 +135,7 @@ onMounted(() => {
                 loading
             />
             <div class="grid-cell-content container">
-                <div :class="`text-bold bg-animated-text q-mx-sm ${ val == true ? 'text-h4' : 'text-h2' }`">
+                <div :class="`text-bold bg-animated-text q-mx-sm q-mt-xl ${ val == true ? 'text-h4' : 'text-h2' }`">
                     <slot name="title">default</slot>
                 </div>
                 <div v-smth-scrollbar v-show="val"
@@ -153,10 +238,28 @@ onMounted(() => {
 </template>
 <style lang="scss">
 .grid {
-    display: flex;
-    gap: 0px;
-    flex-wrap: wrap;
-    transition: all v-bind(milisegundosCss) ease-in-out;
+    & .dragableHover {
+        background: inherit;
+        height: 100px;
+        width: 100px;
+        display: block;
+        border-radius: 50%;
+        inset: 50% 50%;
+        position: absolute;
+        transform: translate(-50%, -50%) rotate(180deg);
+        transition: all 0ms linear;
+        opacity: 1;
+        @media screen and (max-width: 700px) {
+            opacity: 1;
+        }
+    }
+
+    &:hover .dragableHover {
+        //opacity: 0;
+        @media screen and (max-width: 700px) {
+            opacity: 1;
+        }
+    }
 
     &-cell {
         animation: all 7s ease-in-out;
@@ -165,6 +268,19 @@ onMounted(() => {
         min-height: 41vh;
         order: 1;
         position: relative;
+        overflow: hidden;
+
+        &:hover .dragableHover {
+            opacity: 1;
+            @media screen and (max-width: 700px) {
+                opacity: 1;
+            }
+        }
+
+        &:hover .dragableHover {
+            opacity: 1;
+        }
+
         @media screen and (max-width: 1800px) {
             flex: 1 1 30%;
         }
@@ -275,4 +391,215 @@ onMounted(() => {
     top: 10px;
     right: 10px;
 }
+
+.shake {
+    animation: shake 150ms ease-in-out infinite;
+    -moz-animation: shake 150ms ease-in-out infinite;
+    -webkit-animation: shake 150ms ease-in-out infinite;
+    -o-animation: shake 150ms ease-in-out infinite;
+}
+
+.swing1 {
+    animation: swing1 60s ease-in-out infinite;
+    -moz-animation: swing1 60s ease-in-out infinite;
+    -webkit-animation: swing1 60s ease-in-out infinite;
+    -o-animation: swing1 60s ease-in-out infinite;
+}
+
+.swing2 {
+    animation: swing1 90s ease-in-out infinite;
+    -moz-animation: swing1 90s ease-in-out infinite;
+    -webkit-animation: swing1 90s ease-in-out infinite;
+    -o-animation: swing1 90s ease-in-out infinite;
+}
+
+.beat {
+    animation: beat 150ms ease-in-out infinite;
+    -moz-animation: beat 150ms ease-in-out infinite;
+    -webkit-animation: beat 150ms ease-in-out infinite;
+    -o-animation: beat 150ms ease-in-out infinite;
+}
+
+@keyframes shake {
+    0% {
+        transform: translate(-53%, -50%);
+        height: 100px;
+        width: 100px;
+    }
+    50% {
+        transform: translate(-50%, -53%);
+        height: 99px;
+        width: 99px;
+    }
+    100% {
+        transform: translate(-50%, -50%);
+        height: 100px;
+        width: 100px;
+    }
+}
+
+@keyframes beat {
+    0% {
+
+        height: calc(v-bind(beatSize1) + 80px);
+        width: calc(v-bind(beatSize1) + 80px);
+    }
+    50% {
+        height: calc(v-bind(beatSize1) + 130px);
+        width: calc(v-bind(beatSize1) + 130px);
+    }
+    100% {
+        height: v-bind(beatSize1);
+        width: v-bind(beatSize1);
+    }
+}
+
+@keyframes swing1 {
+    0% {
+        height: v-bind(randomSize1);
+        width: v-bind(randomSize1);
+        top: v-bind(actualTopPositionCss);
+        left: v-bind(actualLeftPositionCss);
+    }
+    10% {
+        top: v-bind(randomTopPositionCss);
+        left: v-bind(randomLeftPositionCss);
+    }
+    25% {
+        top: v-bind(randomTopPositionCss);
+        left: v-bind(randomLeftPositionCss);
+        height: v-bind(randomSize3);
+        width: v-bind(randomSize3);
+    }
+    20% {
+        top: v-bind(randomTopPositionCss);
+        left: v-bind(randomLeftPositionCss);
+    }
+    30% {
+        top: v-bind(random2TopPositionCss);
+        left: v-bind(random2LeftPositionCss);
+    }
+    40% {
+        top: v-bind(randomLeftPositionCss);
+        left: v-bind(randomTopPositionCss);
+    }
+    50% {
+        top: v-bind(random2LeftPositionCss);
+        left: v-bind(random2TopPositionCss);
+        height: v-bind(randomSize7);
+        width: v-bind(randomSize7);
+    }
+    60% {
+        top: v-bind(randomTopPositionCss);
+        left: v-bind(randomLeftPositionCss);
+    }
+    70% {
+        top: v-bind(random2TopPositionCss);
+        left: v-bind(randomTopPositionCss);
+    }
+    75% {
+        top: v-bind(randomLeftPositionCss);
+        left: v-bind(randomTopPositionCss);
+        height: v-bind(randomSize2);
+        width: v-bind(randomSize2);
+    }
+    80% {
+        top: v-bind(random2LeftPositionCss);
+        left: v-bind(randomLeftPositionCss);
+    }
+    90% {
+        top: v-bind(randomTopPositionCss);
+        left: v-bind(randomLeftPositionCss);
+    }
+    100% {
+        height: v-bind(randomSize1);
+        width: v-bind(randomSize1);
+        top: v-bind(actualTopPositionCss);
+        left: v-bind(actualLeftPositionCss);
+    }
+}
+
+@keyframes swing2 {
+    0% {
+        top: v-bind(actualLeftPositionCss);
+        left: v-bind(actualTopPositionCss);
+        height: v-bind(randomSize1);
+        width: v-bind(randomSize1);
+    }
+    10% {
+        height: v-bind(randomSize2);
+        width: v-bind(randomSize2);
+        top: v-bind(randomTopPositionCss);
+        left: v-bind(randomLeftPositionCss);
+    }
+    25% {
+        top: v-bind(randomLeftPositionCss);
+        left: v-bind(randomTopPositionCss);
+        height: v-bind(randomSize5);
+        width: v-bind(randomSize5);
+    }
+    20% {
+        height: v-bind(randomSize1);
+        width: v-bind(randomSize1);
+        top: v-bind(randomTopPositionCss);
+        left: v-bind(randomLeftPositionCss);
+    }
+    30% {
+        height: v-bind(randomSize3);
+        width: v-bind(randomSize3);
+        top: v-bind(random2TopPositionCss);
+        left: v-bind(random2LeftPositionCss);
+    }
+    40% {
+        height: v-bind(randomSize8);
+        width: v-bind(randomSize8);
+        top: v-bind(randomLeftPositionCss);
+        left: v-bind(randomTopPositionCss);
+    }
+    50% {
+        top: v-bind(random2LeftPositionCss);
+        left: v-bind(random2TopPositionCss);
+        height: v-bind(randomSize7);
+        width: v-bind(randomSize7);
+    }
+    60% {
+        top: v-bind(randomTopPositionCss);
+        left: v-bind(randomLeftPositionCss);
+        height: v-bind(randomSize6);
+        width: v-bind(randomSize6);
+    }
+    70% {
+        top: v-bind(random2TopPositionCss);
+        left: v-bind(randomTopPositionCss);
+        height: v-bind(randomSize5);
+        width: v-bind(randomSize5);
+    }
+    75% {
+        top: v-bind(randomTopPositionCss);
+        left: v-bind(randomLeftPositionCss);
+        height: v-bind(randomSize4);
+        width: v-bind(randomSize4);
+
+    }
+    80% {
+        height: v-bind(randomSize3);
+        width: v-bind(randomSize3);
+        top: v-bind(random2LeftPositionCss);
+        left: v-bind(randomLeftPositionCss);
+    }
+    90% {
+        height: v-bind(randomSize2);
+        width: v-bind(randomSize2);
+        top: v-bind(randomTopPositionCss);
+        left: v-bind(randomLeftPositionCss);
+    }
+    100% {
+        height: v-bind(randomSize1);
+        width: v-bind(randomSize1);
+        top: v-bind(actualLeftPositionCss);
+        left: v-bind(actualTopPositionCss);
+    }
+}
+
+
 </style>
