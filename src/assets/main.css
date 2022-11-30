@@ -49,52 +49,6 @@
 
 }
 
-.bg-animated-custom[data-bga-custom*=
-
-attr
-
-(
-data-bga-custom
-
-)
-]
-,
-.bg-animated-custom [data-bga-custom*=
-
-attr
-
-(
-data-bga-custom
-
-)
-]
-{
-    background: #92278f
-;
-    background: linear-gradient(270deg, var(--q-primary), var(--q-secondary), var(--q-accent))
-;
-    background-size: 600% 600%
-;
-    -webkit-background-clip: text
-;
-    background-clip: text
-;
-    color: transparent
-;
-    -webkit-animation: AnimationName 10s ease infinite
-;
-    -moz-animation: AnimationName 10s ease infinite
-;
-    -o-animation: AnimationName 10s ease infinite
-;
-    animation: AnimationName 10s ease infinite
-;
-    text-stroke: 0.4px #808080
-;
-    -webkit-text-stroke: 0.4px #808080
-;
-}
-
 @-webkit-keyframes AnimationName {
     0% {
         background-position: 0% 50%
