@@ -20,11 +20,9 @@ onMounted(async () => {
 })
 
 watch(() => settingsWebsite.value, (n) => {
-    console.log(n, " value changed", console.table(settingsWebsite.leftDrawerOpen))
 });
 
 watch(() => router, (n) => {
-    console.log(n, " value changed", console.table(router))
 });
 </script>
 

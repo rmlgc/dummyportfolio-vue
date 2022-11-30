@@ -25,9 +25,6 @@ export const useWebStore = defineStore({
         settingsWebsiteToggle(key: string) {
             this.settingsWebsite.leftDrawerOpen = !this.settingsWebsite.leftDrawerOpen
             LocalStorage.set('settingsWebsite', settingsWebsite)
-            console.log(settingsWebsite)
-            // this.settingsCookie[key] = !this.settingsCookie[key]
-            // Cookies.set('website', this.settingsCookie[key])
         },
     },
 })

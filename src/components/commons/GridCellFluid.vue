@@ -17,38 +17,32 @@ const props = defineProps({
 
 const {getScrollTarget, setVerticalScrollPosition} = scroll
 
-// takes an element object
 function resizeElement(event) {
-    console.log('click')
-    val.value= !val.value
+
+    val.value = !val.value
     setTimeout(
         () => {
             const el = event.target.closest('.grid-cell')
-            console.log(el)
-            console.log(el.offsetTop)
             const target = getScrollTarget(el)
             const offset = el.offsetTop - 5
             const duration = 1000
-            console.log(offset)
             setVerticalScrollPosition(target, offset, duration)
         }
         , milisegundos.value - 500);
 }
 
 onMounted(() => {
-    // the DOM element will be assigned to the ref after initial render
-    console.log(root.value) // this is your $el
-    console.log(
 
-    ) // this is your $el
     imgCss.value = `url(https://picsum.photos/10${root.value.__vueParentComponent.uid}/10${root.value.__vueParentComponent.uid})`
 
 })
 </script>
 <template>
-    <div  @click="resizeElement" ref="root" :class="`grid-cell bg-animated cursor-pointer ${ val == true ? 'open' : '' }`">
+    <div @click="resizeElement" ref="root"
+         :class="`grid-cell bg-animated cursor-pointer ${ val == true ? 'open' : '' }`">
         <div class="grid-cell-wrap bg-animated-i">
-            <q-btn class="absolute-top-right q-mt-lg q-mr-lg" dense fab :size="`${ val == true ? '1.5rem' : '5rem' }`" :icon="`${ val == true ? 'sym_o_close' : 'sym_s_touch_app' }`"/>
+            <q-btn class="absolute-top-right q-mt-lg q-mr-lg" dense fab :size="`${ val == true ? '1.5rem' : '5rem' }`"
+                   :icon="`${ val == true ? 'sym_o_close' : 'sym_s_touch_app' }`"/>
             <q-img
                 v-if="image !== null"
                 :src="image"
@@ -190,10 +184,6 @@ onMounted(() => {
                 transition: font-size .1s ease-in-out,
                 opacity 5s ease-in-out,
                 transform 1s linear;
-            }
-
-            .open & {
-                //opacity: 0.7;
             }
         }
 

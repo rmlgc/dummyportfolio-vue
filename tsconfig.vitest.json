@@ -5,5 +5,9 @@
     "composite": true,
     "lib": [],
     "types": ["node", "jsdom"]
-  }
+  },
+  "compilerOptions": {
+    "outDir": "./built",
+    "allowJs": true,
+  },
 }
