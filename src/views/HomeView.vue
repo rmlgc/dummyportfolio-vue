@@ -5,7 +5,7 @@ import MyLinktree from '@/components/commons/MyLinktree.vue'
 </script>
 
 <template>
-    <div class="">
+    <div class="wrapper">
         <div class="grid">
             <GridCellFluid>
                 <template v-slot:title to="asd">
@@ -33,23 +33,32 @@ import MyLinktree from '@/components/commons/MyLinktree.vue'
                 <template v-slot:title to="asd">
                     <p class="clip">
                         mas sobre mi
-                        <q-btn class="clip-btn" round icon="sym_o_link" href="https://linktr.ee/rommelgc" rel="noopener" target="_blank"/>
+                        <q-btn class="clip-btn" round icon="sym_o_link" href="https://linktr.ee/rommelgc" rel="noopener"
+                               target="_blank"/>
                     </p>
                 </template>
                 <p class="text-bold">Quieres saber mas sobre mi u otros enlaces de interes clica en </p>
-                <q-btn rounded href="https://linktr.ee/rommelgc" rel="noopener" target="_blank" icon-right="sym_o_link"> Ver mas</q-btn>
+                <q-btn rounded href="https://linktr.ee/rommelgc" rel="noopener" target="_blank" icon-right="sym_o_link">
+                    Ver mas
+                </q-btn>
                 <MyLinktree></MyLinktree>
             </GridCellFluid>
         </div>
     </div>
 </template>
 <style lang="scss" scoped>
+.wrapper{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 75vh;
+    width: 100%;
+}
 .grid {
+    width: 100%;
     display: flex;
     gap: 0px;
     flex-wrap: wrap;
     position: relative;
 }
-
-
 </style>
