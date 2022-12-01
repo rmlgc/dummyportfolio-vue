@@ -34,15 +34,15 @@
 .bg-animated-text > *,
 .bg-animated-text {
     background: #92278f;
-    background: linear-gradient(270deg, var(--q-accent), var(--q-primary), var(--q-secondary));
+    background: linear-gradient(270deg, var(--color-background), var(--color-heading), var(--color-text));
     background-size: 600% 600%;
     -webkit-background-clip: text;
     background-clip: text;
     color: transparent;
-    -webkit-animation: AnimationName 10s ease infinite;
-    -moz-animation: AnimationName 10s ease infinite;
-    -o-animation: AnimationName 10s ease infinite;
-    animation: AnimationName 10s ease infinite;
+    -webkit-animation: AnimationName 30s ease infinite;
+    -moz-animation: AnimationName 30s ease infinite;
+    -o-animation: AnimationName 30s ease infinite;
+    animation: AnimationName 30s ease infinite;
     text-stroke: 0.4px #808080;
     -webkit-text-stroke: 0.4px #808080;
     text-shadow: 0px 0px 100px #000000;
