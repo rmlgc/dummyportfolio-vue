@@ -2,8 +2,13 @@
 import {ref} from 'vue'
 import TabVue from '@/components/about/TabVue.vue'
 import TabMe from '@/components/about/TabMe.vue'
+import {storeToRefs} from 'pinia'
+import {useWebStore} from '@//stores/useWebStore'
 
+const {webTitle, settingsWebsite, webLoading} = storeToRefs(useWebStore())
 const tab = ref('vue')
+
+webTitle.value = 'Dummyportfolio-vue'
 </script>
 <template>
     <section class="container">

@@ -21,13 +21,13 @@ import MyLinktree from '@/components/commons/MyLinktree.vue'
 </template>
 <style scoped lang="scss">
 .footer {
-  position: fixed;
-  bottom: -60px;
-  left: 92vw;
-  transition: bottom 1s ease-in-out;
+    position: fixed;
+    bottom: -60px;
+    left: 92vw;
+    transition: bottom 1s ease-in-out;
 
-  &:hover {
-    bottom: 0;
-  }
+    &:hover {
+        bottom: 0;
+    }
 }
 </style>

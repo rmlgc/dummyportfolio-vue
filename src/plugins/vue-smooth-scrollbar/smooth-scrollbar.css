@@ -10,18 +10,21 @@
     /*border-bottom: 1px solid #808080;*/
     box-shadow: 0 -7px 9px -7px #000000b3 inset,
     0 7px 9px -7px #000000b3 inset;
-    padding:16px 12px;
+    padding: 16px 12px;
 }
+
 .smth-scrollbar-line:before,
-.smth-scrollbar-line:after{
-    content:'';
+.smth-scrollbar-line:after {
+    content: '';
     border: 1px solid #808080;
     display: block;
     width: 100%;
 }
-.smth-scrollbar-line:before{
+
+.smth-scrollbar-line:before {
     margin-bottom: 16px;
 }
-.smth-scrollbar-line:after{
+
+.smth-scrollbar-line:after {
     margin-top: 8px;
 }

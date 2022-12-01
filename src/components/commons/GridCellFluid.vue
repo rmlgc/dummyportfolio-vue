@@ -1,5 +1,5 @@
 <script setup>
-import {ref, onMounted, defineProps} from 'vue'
+import {ref, onMounted} from 'vue'
 import {scroll} from 'quasar'
 import Scrollbar from 'smooth-scrollbar';
 

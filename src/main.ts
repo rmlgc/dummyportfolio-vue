@@ -16,19 +16,16 @@ import '@quasar/extras/material-symbols-sharp/material-symbols-sharp.css'
 
 import iconSet from 'quasar/icon-set/fontawesome-v6'
 import '@quasar/extras/fontawesome-v6/fontawesome-v6.css'
-
 // A few examples for animations from Animate.css:
 import '@quasar/extras/animate/fadeIn.css'
 import '@quasar/extras/animate/fadeOut.css'
-
 // Import Quasar css
 import 'quasar/src/css/index.sass'
-
 import App from './App.vue'
 import router from './router'
-
 import ScrollbarInit from "./plugins/vue-smooth-scrollbar/smooth-scrollbar.js"
 import './assets/main.css'
+
 const app = createApp(App)
 
 app.use(createPinia())

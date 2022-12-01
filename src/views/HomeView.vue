@@ -2,6 +2,13 @@
 import {ref} from 'vue'
 import GridCellFluid from '@/components/commons/GridCellFluid.vue'
 import MyLinktree from '@/components/commons/MyLinktree.vue'
+import {storeToRefs} from 'pinia'
+import {useWebStore} from '@//stores/useWebStore'
+
+const {webTitle, settingsWebsite, webLoading} = storeToRefs(useWebStore())
+
+webTitle.value = 'Dummyportfolio-vue'
+
 </script>
 
 <template>
@@ -47,13 +54,14 @@ import MyLinktree from '@/components/commons/MyLinktree.vue'
     </div>
 </template>
 <style lang="scss" scoped>
-.wrapper{
+.wrapper {
     display: flex;
     justify-content: center;
     align-items: center;
     min-height: 75vh;
     width: 100%;
 }
+
 .grid {
     width: 100%;
     display: flex;
