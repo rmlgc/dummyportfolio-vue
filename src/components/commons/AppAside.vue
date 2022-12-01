@@ -3,7 +3,7 @@ import {ref} from 'vue'
 import {storeToRefs} from 'pinia'
 import {useWebStore} from '@//stores/useWebStore'
 
-const {settingsWebsite, loading} = storeToRefs(useWebStore())
+const {settingsWebsite, webLoading} = storeToRefs(useWebStore())
 const link = ref('home')
 </script>
 <template>

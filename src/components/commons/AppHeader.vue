@@ -3,7 +3,7 @@ import {storeToRefs} from 'pinia'
 import {useWebStore} from '@/stores/useWebStore'
 import AppHeaderRouteTab from '@/components/commons/AppHeaderRouteTab.vue'
 
-const {webTitle, settingsWebsite, loading} = storeToRefs(useWebStore())
+const {webTitle, settingsWebsite, webLoading} = storeToRefs(useWebStore())
 const {settingsWebsiteToggle} = useWebStore()
 </script>
 <template>
