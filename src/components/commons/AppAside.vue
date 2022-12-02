@@ -40,19 +40,6 @@ const link = ref('home')
 
                         <q-item-section>Employee Site</q-item-section>
                     </q-item>
-                    <q-item
-                        clickable
-                        v-ripple
-                        :active="link === 'blogSite'"
-                        @click="link = 'blogSite'"
-                        to="/blog"
-                        active-class="my-menu-link"
-                    >
-                        <q-item-section avatar>
-                            <q-icon name="sym_o_speaker_notes"/>
-                        </q-item-section>
-                        <q-item-section>Blog Site</q-item-section>
-                    </q-item>
                     <q-separator spaced/>
                     <q-item
                         clickable

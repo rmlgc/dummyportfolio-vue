@@ -7,7 +7,7 @@ const {webTitle, settingsWebsite, webLoading} = storeToRefs(useWebStore())
 const {settingsWebsiteToggle} = useWebStore()
 </script>
 <template>
-    <q-header reveal elevated class="bg-primary text-white" height-hint="1">
+    <q-header dense reveal elevated class="bg-glass--primary text-white" height-hint="1" :style="`$q.screen.gt.sm ? filter:blur(5px);:''`">
         <q-toolbar>
             <q-btn dense flat round icon="menu" @click="settingsWebsiteToggle"/>
             <q-avatar>

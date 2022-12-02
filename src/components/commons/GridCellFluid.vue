@@ -124,17 +124,14 @@ onMounted(() => {
          @mousemove="mouseMove" @click="resizeElement"
          ref="root"
          :class="`grid-cell bg-animated cursor-pointer ${ val == true ? 'open' : '' }`">
-        <div :class="`dragableHover ${animationClass[getRndInteger(0, 2)]}`"></div>
         <div class="grid-cell-wrap bg-animated-i">
-            <q-btn class="absolute-top-right q-mt-lg q-mr-lg" dense fab :size="`${ val == true ? '1.5rem' : '5rem' }`"
-                   :icon="`${ val == true ? 'sym_o_close' : 'sym_s_touch_app' }`"/>
             <q-img
                 v-if="image !== null"
                 :src="image"
                 class="grid-cell-image"
                 loading
             />
-            <div class="grid-cell-content container">
+            <div :class="`grid-cell-content container ${ val == true ? 'bg-glass' : ''}`">
                 <div :class="`text-bold bg-animated-text q-mx-sm q-mt-xl ${ val == true ? 'text-h4' : 'text-h2' }`">
                     <slot name="title">default</slot>
                 </div>
@@ -233,7 +230,10 @@ onMounted(() => {
                     </slot>
                 </div>
             </div>
+            <q-btn class="absolute-top-right q-mt-lg q-mr-lg" dense fab :size="`${ val == true ? '1.5rem' : '5rem' }`"
+                   :icon="`${ val == true ? 'sym_o_close' : 'sym_s_touch_app' }`"/>
         </div>
+        <div :class="`dragableHover ${animationClass[getRndInteger(0, 2)]}`"></div>
     </div>
 </template>
 <style lang="scss">
@@ -295,6 +295,8 @@ onMounted(() => {
             width: 100%;
             height: 100%;
             transition: all v-bind(milisegundosCss) ease-in-out;
+            position: relative;
+            z-index: 1;
 
             & .grid-cell-content {
                 transition: font-size .1s ease-in-out,
@@ -308,7 +310,7 @@ onMounted(() => {
             //z-index: 100;
             flex: 50 2 20%;
             order: 1;
-            background: var(--color-background-soft);
+            //background: var(--color-background-soft);
             @media screen and (max-width: 1800px) {
                 flex: 50 2 33%;
             }
@@ -344,7 +346,7 @@ onMounted(() => {
         &-image {
             position: absolute;
             object-fit: cover;
-            z-index: 0;
+            z-index: -1;
             top: 0;
             bottom: 0;
             right: 0;
@@ -359,7 +361,7 @@ onMounted(() => {
 
         &-content {
             height: 100%;
-            z-index: 1;
+            //z-index: ;
             position: relative;
             overflow: hidden;
             display: flex;
