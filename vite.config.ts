@@ -2,6 +2,7 @@ import {fileURLToPath, URL} from 'node:url'
 
 import {defineConfig} from 'vite'
 import vue from '@vitejs/plugin-vue'
+import mkcert from 'vite-plugin-mkcert'
 import {quasar, transformAssetUrls} from '@quasar/vite-plugin'
 
 const path = require("path");
@@ -17,11 +18,13 @@ export default defineConfig({
         }),
         quasar({
             sassVariables: 'src/assets/quasar-variables.sass'
-        })
+        }),
+        mkcert(),
     ],
     resolve: {
         alias: {
             '@': fileURLToPath(new URL('./src', import.meta.url))
         }
-    }
+    },
+    server: { https: true },
 })

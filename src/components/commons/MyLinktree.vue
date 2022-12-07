@@ -46,7 +46,6 @@ const open = ref(false)
 
     .active & {
         font-size: initial;
-        font-weight: 400;
     }
 }
 

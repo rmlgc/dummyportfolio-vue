@@ -9,7 +9,14 @@ export const useEmployeeStore = defineStore({
         error: null
     }),
     getters: {
+        // getPostAuthor: (employeeId, state) => {
+        //     return state.employees.find((employee) => employee.id === employeeId)
+        // }
     },
     actions: {
+        async fetchEmployees() {
+            this.employees = await fetch('https://dummy.restapiexample.com/api/v1/employees')
+                .then((response) => response.json())
+        }
     }
 })

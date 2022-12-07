@@ -20,7 +20,7 @@ const router = createRouter({
         {
             path: '/employee',
             name: 'employee',
-            component: () => import((`@/site/ApiEmployees/AppLayout.vue`))
+            component: () => import((`@/site/ApiEmployees/views/HomeView.vue`))
         },
     ]
 })
