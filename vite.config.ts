@@ -26,5 +26,21 @@ export default defineConfig({
             '@': fileURLToPath(new URL('./src', import.meta.url))
         }
     },
-    server: { https: true },
+    server: {
+        https: true,
+        proxy: {
+            '^/api': {
+                target: 'https://dummy.restapiexample.com/',
+                changeOrigin: true,
+                ws: true,
+                secure: false,
+            },
+            '/api': {
+                target: 'https://cake-start.development-gftic.com/',
+                changeOrigin: true,
+                ws: true,
+                secure: false,
+            },
+        },
+    },
 })

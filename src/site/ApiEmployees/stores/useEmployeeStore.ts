@@ -15,8 +15,11 @@ export const useEmployeeStore = defineStore({
     },
     actions: {
         async fetchEmployees() {
-            this.employees = await fetch('https://dummy.restapiexample.com/api/v1/employees')
+            const employees = await fetch('/api/v1/employees')
                 .then((response) => response.json())
+
+            this.employees = employees.data
+            console.log(this.employees)
         }
     }
 })
