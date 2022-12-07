@@ -3,19 +3,15 @@ import MyLinktree from '@/components/commons/MyLinktree.vue'
 
 </script>
 <template>
-    <q-footer reveal elevated>
-        <q-toolbar>
-            <q-toolbar-title>
-                <q-avatar>
-                    <img src="https://cdn.quasar.dev/logo-v2/svg/logo-mono-white.svg">
-                </q-avatar>
-                <div>
-                    <a href="https://vitejs.dev/" target="_blank" rel="noopener">Vite</a> +
-                    <a href="https://vuejs.org/" target="_blank" rel="noopener">Vue 3</a> +
-                    <a href="https://quasar.dev/" target="_blank" rel="noopener"> Quasar</a>.
-                </div>
-            </q-toolbar-title>
-        </q-toolbar>
+    <div>
+        <a href="https://vitejs.dev/" target="_blank" rel="noopener">Vite</a> +
+        <a href="https://vuejs.org/" target="_blank" rel="noopener">Vue 3</a> +
+        <a href="https://quasar.dev/" target="_blank" rel="noopener"> Quasar</a>.
+    </div>
+    <br>
+    <br>
+    <br>
+    <q-footer reveal elevated class="bg-glass--primary">
         <MyLinktree/>
     </q-footer>
 </template>
