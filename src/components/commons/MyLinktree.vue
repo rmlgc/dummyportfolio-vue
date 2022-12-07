@@ -9,7 +9,7 @@ const open = ref(false)
            @click="open = !open" :icon="open ? 'sym_o_close' : 'sym_o_expand_content'"
     />
     <a href="https://linktr.ee/rommelgc" rel="noopener" target="_blank"
-       :class="`text-amber q-px-md ${open ? 'active' : ''}`">R<span class="text-reduce">om</span>m<span
+       :class="`text-handler text-amber q-px-md ${open ? 'active' : ''}`">R<span class="text-reduce">om</span>m<span
         class="text-reduce">e</span>l<span class="text-reduce">&nbsp;</span>G<span
         class="text-reduce">arcia </span>C<span class="text-reduce">oronado</span> © 2022
         <img alt="Vue logo" :class="`noticeme my-linktr logo  ${open ? 'active' : ''}`"
@@ -33,13 +33,16 @@ const open = ref(false)
 }
 
 .text-handler {
+    font-weight: 500;
 
+    &.active {
+        font-weight: 100;
+    }
 }
 
 .text-reduce {
     font-size: 0;
     transition: font-size 1s ease-in-out;
-    font-weight: 900;
 
     .active & {
         font-size: initial;

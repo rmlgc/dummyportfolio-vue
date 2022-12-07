@@ -11,7 +11,7 @@ import MyLinktree from '@/components/commons/MyLinktree.vue'
     <br>
     <br>
     <br>
-    <q-footer reveal elevated class="bg-glass--primary">
+    <q-footer reveal elevated class="bg-glass--primary bg-glass--slim">
         <MyLinktree/>
     </q-footer>
 </template>

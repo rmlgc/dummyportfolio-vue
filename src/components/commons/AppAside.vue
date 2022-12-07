@@ -1,10 +1,18 @@
 <script setup lang="ts">
-import {ref} from 'vue'
+import {onMounted, ref} from 'vue'
 import {storeToRefs} from 'pinia'
 import {useWebStore} from '@//stores/useWebStore'
+import {useQuasar} from 'quasar'
 
+const $q = useQuasar()
 const {settingsWebsite, webLoading} = storeToRefs(useWebStore())
 const link = ref('home')
+
+onMounted(() => {
+    if ($q.screen.lt.md) {
+        settingsWebsite.value.leftDrawerOpen = false
+    }
+})
 </script>
 <template>
     <q-drawer v-model="settingsWebsite.leftDrawerOpen" side="left" bordered>
