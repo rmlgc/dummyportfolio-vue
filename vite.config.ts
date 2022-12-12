@@ -33,7 +33,8 @@ export default defineConfig({
                 target: 'https://dummy.restapiexample.com/',
                 changeOrigin: true,
                 ws: true,
-                secure: true,configure: (proxy, _options) => {
+                secure: false,
+                configure: (proxy, _options) => {
                     proxy.on('error', (err, _req, _res) => {
                         console.log('proxy error', err);
                     });

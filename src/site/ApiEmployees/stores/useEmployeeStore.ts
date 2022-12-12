@@ -24,7 +24,11 @@ export const useEmployeeStore = defineStore({
             console.log(window.location.host)
             console.log(urlApi)
             console.log('________________________')
-            const employees = await fetch(urlApi)
+            const employees = await fetch(urlApi,{
+                'headers': {
+                    'Access-Control-Allow-Origin': '*'
+                }
+            })
                 .then((response) => response.json())
             this.employees = employees.data
             console.log(this.employees)
