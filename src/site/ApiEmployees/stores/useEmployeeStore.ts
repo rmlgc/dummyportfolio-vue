@@ -1,4 +1,5 @@
 import {defineStore} from 'pinia'
+import {symOutlinedBlurMedium} from "@quasar/extras/material-symbols-outlined";
 
 export const useEmployeeStore = defineStore({
     id: 'Employee',
@@ -15,9 +16,12 @@ export const useEmployeeStore = defineStore({
     },
     actions: {
         async fetchEmployees() {
-            const employees = await fetch('/api/v1/employees')
-                .then((response) => response.json())
+            let urlApi = '/api/v1/employees';
+            if (window.location.host === 'rmlgc.github.io')
+            urlApi = 'https://dummy.restapiexample.com/api/v1/employees';
 
+            const employees = await fetch(urlApi)
+                .then((response) => response.json())
             this.employees = employees.data
             console.log(this.employees)
         }
