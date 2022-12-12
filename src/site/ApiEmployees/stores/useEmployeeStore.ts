@@ -1,5 +1,7 @@
 import {defineStore} from 'pinia'
-import {symOutlinedBlurMedium} from "@quasar/extras/material-symbols-outlined";
+
+const totalEmployees = 800
+const rows = 100
 
 export const useEmployeeStore = defineStore({
     id: 'Employee',
@@ -16,18 +18,12 @@ export const useEmployeeStore = defineStore({
     },
     actions: {
         async fetchEmployees() {
-            // let urlApi = '/api/v1/employees';
-            // if (window.location.host === 'rmlgc.github.io')
-                let urlApi = 'https://hub.dummyapis.com/employee?';
-
-            console.log('________________________')
-            console.log(window.location.host)
-            console.log(urlApi)
-            console.log('________________________')
+            this.loading = true;
+            let urlApi = `https://hub.dummyapis.com/employee?noofRecords=${rows}&idStarts=0`;
             const employees = await fetch(urlApi)
                 .then((response) => response.json())
-            console.log(employees)
             this.employees = employees
+            this.loading = false;
         }
     }
 })
