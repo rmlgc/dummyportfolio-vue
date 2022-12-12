@@ -22,7 +22,7 @@ webTitle.value = 'Dummyportfolio-vue'
                     </p>
                 </template>
                 <p class="text-bold">Simple web app que recibe datos de usuarios de <a
-                    href="http://dummy.restapiexample.com/" rel="noopener" target="_blank" class="text-secondary">http://dummy.restapiexample.com/</a>
+                    href="https://hub.dummyapis.com" rel="noopener" target="_blank" class="text-secondary">https://hub.dummyapis.com/</a>
                 </p>
                 <q-btn rounded to="/employee" icon-right="sym_o_link"> Ver App</q-btn>
             </GridCellFluid>
