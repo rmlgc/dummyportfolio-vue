@@ -34,13 +34,7 @@ export default defineConfig({
                 changeOrigin: true,
                 ws: true,
                 secure: false,
-            },
-            '/api': {
-                target: 'https://cake-start.development-gftic.com/',
-                changeOrigin: true,
-                ws: true,
-                secure: false,
-            },
+            }
         },
     },
 })
