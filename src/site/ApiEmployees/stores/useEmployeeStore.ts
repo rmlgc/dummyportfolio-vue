@@ -20,8 +20,10 @@ export const useEmployeeStore = defineStore({
             if (window.location.host === 'rmlgc.github.io')
             urlApi = 'https://dummy.restapiexample.com/api/v1/employees';
 
+            console.log('________________________')
             console.log(window.location.host)
             console.log(urlApi)
+            console.log('________________________')
             const employees = await fetch(urlApi)
                 .then((response) => response.json())
             this.employees = employees.data
