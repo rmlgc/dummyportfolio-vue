@@ -4,6 +4,7 @@ import {
     Quasar,
     LocalStorage,
     SessionStorage,
+    BottomSheet,
 } from 'quasar'
 import quasarLang from 'quasar/lang/es'
 import quasarIconSet from 'quasar/icon-set/material-icons'
@@ -34,7 +35,8 @@ app.use(ScrollbarInit)
 app.use(Quasar, {
     plugins: {
         LocalStorage,
-        SessionStorage
+        SessionStorage,
+        BottomSheet
     }, // import Quasar plugins and add here
     lang: quasarLang,
     iconSet: quasarIconSet,

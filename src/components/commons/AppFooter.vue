@@ -1,29 +1,226 @@
 <script setup>
 import MyLinktree from '@/components/commons/MyLinktree.vue'
+import {useQuasar} from 'quasar'
+import {useRouter} from 'vue-router'
+import { ref, onMounted } from 'vue'
+
+const $q = useQuasar()
+const router = useRouter()
+const open = ref(false)
+const heightFooter = ref(0 + 'px')
+
+
+const show = (grid) => {
+    open.value = true
+    $q.bottomSheet({
+        class: 'bg-glass--white bg-glass--slim',
+        message: 'Menu',
+        grid,
+        actions: [
+            {},
+            {
+                label: 'Home',
+                icon: 'home',
+                id: 'home',
+                url: '/',
+            },
+            {},
+            {
+                label: 'Employee site',
+                icon: 'sym_o_badge',
+                id: 'employeeSite',
+                url: '/employee',
+            },
+            {},
+            {
+                label: 'About',
+                icon: 'info',
+                id: 'about',
+                url: '/about',
+            },
+            {},
+            {
+                label: 'Home',
+                icon: 'home',
+                id: 'home',
+                url: '/',
+            },
+            {},
+            {
+                label: 'Employee site',
+                icon: 'sym_o_badge',
+                id: 'employeeSite',
+                url: '/employee',
+            },
+            {},
+            {
+                label: 'About',
+                icon: 'info',
+                id: 'about',
+                url: '/about',
+            },
+            {},
+            {
+                label: 'Home',
+                icon: 'home',
+                id: 'home',
+                url: '/',
+            },
+            {},
+            {
+                label: 'Employee site',
+                icon: 'sym_o_badge',
+                id: 'employeeSite',
+                url: '/employee',
+            },
+            {},
+            {
+                label: 'About',
+                icon: 'info',
+                id: 'about',
+                url: '/about',
+            },
+            {},
+            {
+                label: 'Home',
+                icon: 'home',
+                id: 'home',
+                url: '/',
+            },
+            {},
+            {
+                label: 'Employee site',
+                icon: 'sym_o_badge',
+                id: 'employeeSite',
+                url: '/employee',
+            },
+            {},
+            {
+                label: 'About',
+                icon: 'info',
+                id: 'about',
+                url: '/about',
+            },
+            {},
+            {
+                label: 'Home',
+                icon: 'home',
+                id: 'home',
+                url: '/',
+            },
+            {},
+            {
+                label: 'Employee site',
+                icon: 'sym_o_badge',
+                id: 'employeeSite',
+                url: '/employee',
+            },
+            {},
+            {
+                label: 'About',
+                icon: 'info',
+                id: 'about',
+                url: '/about',
+            },
+            {},
+            {
+                label: 'Home',
+                icon: 'home',
+                id: 'home',
+                url: '/',
+            },
+            {},
+            {
+                label: 'Employee site',
+                icon: 'sym_o_badge',
+                id: 'employeeSite',
+                url: '/employee',
+            },
+            {},
+            {
+                label: 'About',
+                icon: 'info',
+                id: 'about',
+                url: '/about',
+            },
+            {},
+            {
+                label: 'Home',
+                icon: 'home',
+                id: 'home',
+                url: '/',
+            },
+            {},
+            {
+                label: 'Employee site',
+                icon: 'sym_o_badge',
+                id: 'employeeSite',
+                url: '/employee',
+            },
+            {},
+            {
+                label: 'About',
+                icon: 'info',
+                id: 'about',
+                url: '/about',
+            },
+            {},
+            {
+                label: 'Home',
+                icon: 'home',
+                id: 'home',
+                url: '/',
+            },
+            {},
+            {
+                label: 'Employee site',
+                icon: 'sym_o_badge',
+                id: 'employeeSite',
+                url: '/employee',
+            },
+            {},
+            {
+                label: 'About',
+                icon: 'info',
+                id: 'about',
+                url: '/about',
+            },
+        ]
+    }).onOk(action => {
+        // console.log('Action chosen:', action.id)
+        router.push(action.url)
+    }).onCancel(() => {
+        // console.log('Dismissed')
+    }).onDismiss(() => {
+        // console.log('I am triggered on both OK and Cancel')
+        open.value = false
+    })
+        heightFooter.value = document.getElementsByTagName('footer')[0].offsetHeight + 'px';
+        console.log(heightFooter)
+        console.log('_____________')
+}
 
 </script>
 <template>
-    <div>
-        <a href="https://vitejs.dev/" target="_blank" rel="noopener">Vite</a> +
-        <a href="https://vuejs.org/" target="_blank" rel="noopener">Vue 3</a> +
-        <a href="https://quasar.dev/" target="_blank" rel="noopener"> Quasar</a>.
-    </div>
-    <br>
-    <br>
-    <br>
-    <q-footer reveal elevated class="bg-glass--primary bg-glass--slim">
-        <MyLinktree/>
+    <q-footer v-if="$q.screen.lt.md"
+              reveal elevated :class="`bg-glass--primary bg-glass--white ${ open === true ? 'active' : '' }`">
+        <q-toolbar>
+            <q-separator vertical/>
+            <q-btn outline flat icon="sym_o_menu" @click="show(false)"/>
+            <q-separator vertical/>
+            <MyLinktree/>
+        </q-toolbar>
+    </q-footer>
+    <q-footer v-if="!$q.screen.lt.md">
     </q-footer>
 </template>
 <style scoped lang="scss">
-.footer {
-    position: fixed;
-    bottom: -60px;
-    left: 92vw;
-    transition: bottom 1s ease-in-out;
+footer {
+    transition: bottom 200ms 0s linear;
+    bottom: 0px;
 
-    &:hover {
-        bottom: 0;
+    &.active {
+        bottom: calc(100% - v-bind(heightFooter));
     }
 }
 </style>

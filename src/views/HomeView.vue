@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import {ref} from 'vue'
 import GridCellFluid from '@/components/commons/GridCellFluid.vue'
-import MyLinktree from '@/components/commons/MyLinktree.vue'
+import ErreEager from '@/components/commons/icons/ErreEager.vue'
 import {storeToRefs} from 'pinia'
 import {useWebStore} from '@//stores/useWebStore'
 
@@ -16,9 +16,9 @@ webTitle.value = 'Dummyportfolio-vue'
         <div class="grid">
             <GridCellFluid>
                 <template v-slot:title to="asd">
-                    <p class="clip">
+                    <p class="text-center">
                         Employee Site
-                        <q-btn class="clip-btn" round icon="sym_o_link" to="/employee"/>
+                        <q-btn dense class="" round icon="sym_o_link" to="/employee"/>
                     </p>
                 </template>
                 <p class="text-bold">Simple web app que recibe datos de usuarios de <a
@@ -28,9 +28,9 @@ webTitle.value = 'Dummyportfolio-vue'
             </GridCellFluid>
             <GridCellFluid>
                 <template v-slot:title to="asd">
-                    <p class="clip">
+                    <p class="text-center">
                         Sobre esta web
-                        <q-btn class="clip-btn" round icon="sym_o_link" to="/about"/>
+                        <q-btn dense class="" round icon="sym_o_link" to="/about"/>
                     </p>
                 </template>
                 <p class="text-bold">Información básica del proyecto y del desarrollador</p>
@@ -38,17 +38,19 @@ webTitle.value = 'Dummyportfolio-vue'
             </GridCellFluid>
             <GridCellFluid>
                 <template v-slot:title to="asd">
-                    <p class="clip">
+                    <p class="text-center">
                         mas sobre mi
-                        <q-btn class="clip-btn" round icon="sym_o_link" href="https://linktr.ee/rommelgc" rel="noopener"
+                        <q-btn dense class="" round icon="sym_o_link" href="https://linktr.ee/rommelgc" rel="noopener"
                                target="_blank"/>
                     </p>
                 </template>
                 <p class="text-bold">Quieres saber mas sobre mi u otros enlaces de interes clica en </p>
+                <ErreEager/>
                 <q-btn rounded href="https://linktr.ee/rommelgc" rel="noopener" target="_blank" icon-right="sym_o_link">
                     Ver mas
                 </q-btn>
-                <MyLinktree></MyLinktree>
+            </GridCellFluid>
+            <GridCellFluid>
             </GridCellFluid>
         </div>
     </div>

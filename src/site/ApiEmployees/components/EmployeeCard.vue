@@ -3,16 +3,16 @@ import {defineProps} from 'vue'
 
 defineProps(
     {
-        id: String,
+        id: Number,
         lastName: String,
         firstName: String,
         email: String,
         contactNumber: String,
-        salary: String,
-        age: String,
+        salary: Number,
+        age: Number,
         address: String,
         imageUrl: String,
-        dob: Date,
+        dob: String,
         open: {type: Boolean, default: false},
     }
 )
@@ -23,15 +23,15 @@ defineProps(
             <h2 class="text-h4 q-mb-none q-pb-none">{{ lastName }}</h2>
             <h2 class="text-h3 q-mt-none q-pt-none">{{ firstName }}</h2>
             <q-btn padding="xs" @click="open = !open" class="absolute-top-right q-mt-lg q-mr-lg" dense fab
-                   :size="`${ val == true ? '1rem' : '1.5rem' }`"
+                   :size="`${ open == true ? '1rem' : '1.5rem' }`"
                    :icon="`${ open == true ? 'sym_o_expand_less' : 'sym_s_expand_more' }`"/>
         </div>
         <div class="card-body">
             <p class="">Email: {{ email }}</p>
-            <p class="">Telefono: {{ contactNumber }}</p>
+            <p class="">Teléfono: {{ contactNumber }}</p>
             <p class="">Sueldo: {{ salary }}</p>
             <p class="">Edad: {{ age }}</p>
-            <p class="">Direccion: {{ address }}</p>
+            <p class="">Dirección: {{ address }}</p>
             <div class="card-image">
                 <q-avatar>
                     <q-img

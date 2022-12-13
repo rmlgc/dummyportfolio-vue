@@ -47,10 +47,10 @@ const resizeElement = (event) => {
             const el = event.target.closest('.grid-cell')
             const target = getScrollTarget(el)
             const offset = el.offsetTop - 5
-            const duration = 1000
+            const duration = 800
             setVerticalScrollPosition(target, offset, duration)
         }
-        , milisegundos.value - 500);
+        , 100);
 }
 
 const mouseMove = (event) => {
@@ -100,7 +100,9 @@ const mouseDown = () => {
     const elCell = event.target.closest('.grid-cell')
     const elDragable = elCell.querySelector('.dragableHover')
 
-    console.log(elDragable.addEventListener("animationend", (el)=>{ console.log(el)}));
+    console.log(elDragable.addEventListener("animationend", (el) => {
+        console.log(el)
+    }));
 
     beatSize1.value = elDragable.style.height
 
@@ -132,7 +134,7 @@ onMounted(() => {
                 loading
             />
             <div :class="`grid-cell-content container ${ val == true ? 'bg-glass' : ''}`">
-                <div :class="`text-bold bg-animated-text q-mx-sm q-mt-xl ${ val == true ? 'text-h4' : 'text-h2' }`">
+                <div :class="`grid-cell-title text-bold bg-animated-text q-mx-sm ${ val == true ? 'text-h4' : 'text-h2' }`">
                     <slot name="title">default</slot>
                 </div>
                 <div v-smth-scrollbar v-show="val"
@@ -230,7 +232,7 @@ onMounted(() => {
                     </slot>
                 </div>
             </div>
-            <q-btn class="absolute-top-right q-mt-lg q-mr-lg" dense fab :size="`${ val == true ? '1.5rem' : '5rem' }`"
+            <q-btn class="absolute-top-right q-mt-sm q-mr-sm" dense fab :size="`${ val == true ? '1.5rem' : '5rem' }`"
                    :icon="`${ val == true ? 'sym_o_close' : 'sym_s_touch_app' }`"/>
         </div>
         <div :class="`dragableHover ${animationClass[getRndInteger(0, 2)]}`"></div>
@@ -289,6 +291,7 @@ onMounted(() => {
         }
         @media screen and (max-width: 700px) {
             flex: 1 1 100%;
+            min-height: 300px;
         }
 
         &-wrap {
@@ -369,6 +372,10 @@ onMounted(() => {
             align-items: center;
             flex-flow: column;
             gap: 20px;
+        }
+
+        &-title {
+            text-transform: capitalize;
         }
 
         &-body {

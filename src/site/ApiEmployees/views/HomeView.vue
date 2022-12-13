@@ -24,7 +24,8 @@ fetchEmployees()
             <EmployeeCard
                 v-for="{id, lastName, firstName, email, contactNumber, salary, age, address, imageUrl ,dob} in employees"
                 :id="id" :lastName="lastName" :firstName="firstName" :email="email" :contactNumber="contactNumber"
-                :salary="salary" :age="age" :address="address" :imageUrl="imageUrl" :dob="dob">
+                :salary="salary" :age="age" :address="address" :imageUrl="imageUrl" :dob="dob"
+                :key="id">
             </EmployeeCard>
         </div>
     </div>

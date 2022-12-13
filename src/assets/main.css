@@ -5,18 +5,6 @@
     margin: auto;
 }
 
-.clip {
-    position: relative;
-    line-height: initial;
-}
-
-.clip-btn {
-    position: absolute;
-    bottom: 100%;
-    left: 0%;
-    transform: translateY(50%);
-}
-
 /*https://www.gradient-animator.com/*/
 
 .bg-animated {
