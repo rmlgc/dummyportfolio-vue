@@ -11,7 +11,7 @@
     bottom: -12px;
     right: 2vw;
     transition: bottom 1s ease-in-out;
-
+    z-index: 1;
     .erre-interact-hover:hover &,
     &:hover {
         bottom: 0;

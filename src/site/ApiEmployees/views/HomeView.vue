@@ -20,7 +20,7 @@ fetchEmployees()
     <WorkInProgress v-if="loading" title=" " description=" " load loadBottom></WorkInProgress>
     <div v-if="!loading" class="container q-px-sm">
         <h1 class="text-h2">Lista empleados</h1>
-        <div class="employee-list">
+        <div class="employee-list q-pt-xs">
             <EmployeeCard
                 v-for="{id, lastName, firstName, email, contactNumber, salary, age, address, imageUrl ,dob} in employees"
                 :id="id" :lastName="lastName" :firstName="firstName" :email="email" :contactNumber="contactNumber"
@@ -32,6 +32,17 @@ fetchEmployees()
 </template>
 <style lang="scss">
 .employee-list {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+    //grid-auto-rows: 50px;
+    grid-gap: 32px 24px;
+    transition: all .5s linear;
+    @media screen and (max-width: 1500px) {
+        grid-template-columns: repeat(auto-fill, minmax(400px, 1fr));
+    }
+    @media screen and (max-width: 900px) {
+    grid-template-columns: repeat(auto-fill, minmax(100%, 1fr));
+    }
 }
 
 </style>
