@@ -5,6 +5,7 @@ import {
     LocalStorage,
     SessionStorage,
     BottomSheet,
+    Notify,
 } from 'quasar'
 import quasarLang from 'quasar/lang/es'
 import quasarIconSet from 'quasar/icon-set/material-icons'
@@ -36,7 +37,8 @@ app.use(Quasar, {
     plugins: {
         LocalStorage,
         SessionStorage,
-        BottomSheet
+        BottomSheet,
+        Notify,
     }, // import Quasar plugins and add here
     lang: quasarLang,
     iconSet: quasarIconSet,

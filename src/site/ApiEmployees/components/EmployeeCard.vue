@@ -1,8 +1,15 @@
 <script setup>
 import {defineProps, ref} from 'vue'
+import {useQuasar} from 'quasar'
 
+const $q = useQuasar()
+// const myForm = ref(null)
 const knowPassword = ref(false)
 const pass = ref('')
+const passError = ref(false)
+const passErrorMessage = ref('')
+const resetTimer = ref(0)
+const resetTimerMax = ref(10000)
 const props = defineProps(
     {
         id: Number,
@@ -19,9 +26,54 @@ const props = defineProps(
     }
 )
 
+const onSubmit = () => {
+    console.log(pass.value !== /password/)
+    if (!pass.value.match(/^password$/gm)) {
+        passError.value = true
+        $q.notify({
+            color: 'red-5',
+            textColor: 'white',
+            icon: 'warning',
+            message: 'write "password"',
+            position: "bottom-left",
+        })
+        passErrorMessage.value = `type 'password'`
+    } else {
+        passError.value = false
+        knowPassword.value = true
+        passError.value = false
+        $q.notify({
+            color: 'green-4',
+            textColor: 'white',
+            icon: 'cloud_done',
+            message: 'Submitted',
+            position: "bottom-left",
+        })
+        resetCountdown()
+    }
+}
+
+const resetCountdown = () => {
+    resetTimer.value = resetTimerMax.value;
+    let interval = setInterval(() => {
+        if (resetTimer.value === 0) {
+            clearInterval(interval)
+            onReset()
+        } else {
+            resetTimer.value -= 100
+        }
+    }, 100)
+}
+
+const onReset = () => {
+    knowPassword.value = false
+    pass.value = ''
+}
+
+
 </script>
 <template>
-    <div ref="el" :class="`text-body1 card q-py-md ${ open ? 'open shadow-1': 'shadow-2'} `">
+    <div ref="el" :class="`text-body1 card q-py-md ${ open ? 'open shadow-1': 'shadow-2'} `">asd
         <div class="card-head q-px-md">
             <h2 class="card-head-subtitle text-h4 q-mb-none q-pb-none">{{ lastName }}</h2>
             <h2 class="card-head-title text-h3 q-mt-none q-pt-none">{{ firstName }}</h2>
@@ -32,22 +84,69 @@ const props = defineProps(
         <q-separator></q-separator>
         <div class="card-body  inset-shadow-down q-px-sm">
             <p class="text-bold">{{ email }}</p>
-            <p class="text-body2">Teléfono: <span class="text-bold">{{ contactNumber }}</span></p>
-            <p class="text-body2">Dirección: <span class="text-bold">{{ address }}</span></p>
-            <q-input v-if="!knowPassword"
-                     class="q-my-md"
-                     bottom-slots outlined v-model="pass" label="'password'" aria-required="true"
-                     :rules='[
-                         pass => pass.includes("password") || `write "password"`
-                     ]'
-                     @keydown.enter="pass.value.validate() ?knowPassword = true : knowPassword = false">
-                <template v-slot:append>
-                    <q-btn round dense flat icon="send"
-                           @click="pass === 'password' ?knowPassword = true : knowPassword = false"/>
-                </template>
-            </q-input>
-            <p class="text-body2">Sueldo: <span class="text-bold">{{ knowPassword ? salary : '*****' }}</span></p>
-            <p class="text-body2">Edad: <span class="text-bold">{{ knowPassword ? age : '*****' }}</span></p>
+
+            <q-form v-if="!knowPassword" ref="myForm"
+                    @submit="onSubmit"
+            >
+                <q-input v-if="!knowPassword"
+                         class="q-mb-sm"
+                         dense bottom-slots outlined
+                         v-model="pass"
+                         label="insert 'password'"
+                         aria-required="true"
+                         hint="Insert 'password' for see more details"
+                         type="password"
+                         :error=passError
+                         :error-message="passErrorMessage"
+                >
+                    <template v-slot:append>
+                        <q-btn round dense flat icon="send"
+                               @click='onSubmit' color="positive"/>
+                    </template>
+                </q-input>
+            </q-form>
+            <q-btn v-if="knowPassword" icon="lock_reset" dense fab-mini label="hide" type="reset" color="negative" flat
+                   class="q-ml-sm" @click="onReset">
+                <div slot="icon">
+                    <q-circular-progress
+                        show-value
+                        font-size="12px"
+                        :value="((resetTimer*100)/resetTimerMax)"
+                        size="25px"
+                        :thickness="0.22"
+                        color="teal"
+                        track-color="grey-3"
+                        class="q-ml-sm"
+                    >
+                        {{ Math.round(((resetTimer * resetTimerMax) / 10) / 1000000) }}s
+                    </q-circular-progress>
+                </div>
+            </q-btn>
+            <div class="flex items-start">
+                <p class="text-body2">Teléfono: <span v-if="knowPassword" class="text-bold">{{ contactNumber }}</span>
+                </p>
+                <q-skeleton class="q-ml-xs" style="flex:1;" v-if="!knowPassword" type="text"/>
+
+            </div>
+
+            <div class="flex items-start">
+                <p class="text-body2">Dirección: <span v-if="knowPassword" class="text-bold">{{ address }}</span></p>
+                <q-skeleton class="q-ml-xs" style="flex:1;" v-if="!knowPassword" type="text"/>
+
+            </div>
+
+            <div class="flex items-start">
+                <p class="text-body2">Sueldo: <span v-if="knowPassword" class="text-bold">{{ salary }}</span></p>
+                <q-skeleton class="q-ml-xs" style="flex:1;" v-if="!knowPassword" type="text"/>
+
+            </div>
+
+            <div class="flex items-start">
+                <p class="text-body2">Edad: <span v-if="knowPassword" class="text-bold">{{ age }}</span></p>
+                <q-skeleton class="q-ml-xs" style="flex:1;" v-if="!knowPassword" type="text"/>
+
+            </div>
+
         </div>
         <div class="card-image">
             <q-avatar>
