@@ -9,7 +9,7 @@
 
 .bg-animated {
     background: #92278f;
-    background: linear-gradient(270deg, var(--q-primary), var(--q-secondary), var(--q-accent));
+    background: linear-gradient(270deg, var(--q-primary), var(--q-secondary));
     background-size: 600% 600%;
     -webkit-animation: AnimationName 30s ease infinite;
     -moz-animation: AnimationName 30s ease infinite;
@@ -22,8 +22,8 @@
 .bg-animated-text > *,
 .bg-animated-text {
     background: #92278f;
-    background: linear-gradient(270deg, var(--color-background), var(--color-heading), var(--color-text));
-    background-size: 600% 600%;
+    background: linear-gradient(270deg, var(--color-background), var(--color-heading));
+    background-size: 800% 800%;
     -webkit-background-clip: text;
     background-clip: text;
     color: transparent;
