@@ -125,7 +125,7 @@ onMounted(() => {
     <div @mouseup="mouseUp" @mousedown="mouseDown" @mouseenter="mouseEnter" @mouseleave="mouseLeave"
          @mousemove="mouseMove" @click="resizeElement"
          ref="root"
-         :class="`grid-cell bg-animated cursor-pointer ${ val == true ? 'open' : '' }`">
+         :class="`grid-cell bg-animated cursor-pointer inset-shadow-down ${ val == true ? 'open' : '' }`">
         <div class="grid-cell-wrap bg-animated-i">
             <q-img
                 v-if="image !== null"
@@ -138,7 +138,7 @@ onMounted(() => {
                     <slot name="title">default</slot>
                 </div>
                 <div v-smth-scrollbar v-show="val"
-                     :class="`smth-scrollbar-shadow grid-cell-body ${ val == true ? 'text-body1' : 'text-none' }`">
+                     :class="`smth-scrollbar-shadow grid-cell-body ${ val == true ? 'text-body1 bg-glass bg-glass--white bg-glass--fat' : 'text-none' }`">
                     <slot>
                         <p>
                             Lorem ipsum dolor sit amet, consectetur adipiscing elit. Phasellus non nisi elit. Curabitur
@@ -235,7 +235,7 @@ onMounted(() => {
             <q-btn class="absolute-top-right q-mt-sm q-mr-sm" dense fab :size="`${ val == true ? '1.5rem' : '5rem' }`"
                    :icon="`${ val == true ? 'sym_o_close' : 'sym_s_touch_app' }`"/>
         </div>
-        <div :class="`dragableHover ${animationClass[getRndInteger(0, 2)]}`"></div>
+        <div :class="`dragableHover shadow-1 shadow-up-12 ${animationClass[getRndInteger(0, 2)]}`"></div>
     </div>
 </template>
 <style lang="scss">
@@ -267,7 +267,9 @@ onMounted(() => {
         animation: all 7s ease-in-out;
         flex: 1 1 17%;
         transition: all v-bind(milisegundosCss) ease-in-out;
-        min-height: 41vh;
+        height: 100vh;
+        min-height: 50vh;
+        max-height: 400px;
         order: 1;
         position: relative;
         overflow: hidden;

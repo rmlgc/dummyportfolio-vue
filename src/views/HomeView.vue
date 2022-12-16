@@ -17,8 +17,9 @@ webTitle.value = 'Dummyportfolio-vue'
             <GridCellFluid>
                 <template v-slot:title to="asd">
                     <p class="text-center">
-                        Employee Site
+                        Employee <span class="inline-block">Site
                         <q-btn dense class="" round icon="sym_o_link" to="/employee"/>
+                        </span>
                     </p>
                 </template>
                 <p class="text-bold">Simple web app que recibe datos de usuarios de <a
@@ -29,19 +30,26 @@ webTitle.value = 'Dummyportfolio-vue'
             <GridCellFluid>
                 <template v-slot:title to="asd">
                     <p class="text-center">
-                        Sobre esta web
+                        Sobre esta
+                        <span class="inline-block">web
                         <q-btn dense class="" round icon="sym_o_link" to="/about"/>
+                        </span>
                     </p>
                 </template>
-                <p class="text-bold">Información básica del proyecto y del desarrollador</p>
+                <p class="text-bold">Información básica del proyecto y del
+                    <span class="inline-block">desarrollador
                 <q-btn rounded to="/about" icon-right="sym_o_link"> Ver info</q-btn>
+                </span>
+                </p>
             </GridCellFluid>
             <GridCellFluid>
                 <template v-slot:title to="asd">
                     <p class="text-center">
-                        mas sobre mi
+                        mas sobre
+                        <span class="inline-block">mi
                         <q-btn dense class="" round icon="sym_o_link" href="https://linktr.ee/rommelgc" rel="noopener"
                                target="_blank"/>
+                            </span>
                     </p>
                 </template>
                 <p class="text-bold">Quieres saber mas sobre mi u otros enlaces de interes clica en </p>
