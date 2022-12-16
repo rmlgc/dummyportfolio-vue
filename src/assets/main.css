@@ -45,31 +45,65 @@
     background-color: var(--bg-white-glass);
 }
 
+.bg-glass--white-dense {
+    backdrop-filter: blur(6px);
+    background-color: var(--bg-white-glass-dense);
+}
+
 .bg-glass--black {
     backdrop-filter: blur(6px);
     background-color: var(--bg-black-glass);
+}
+
+.bg-glass--black-dense {
+    backdrop-filter: blur(6px);
+    background-color: var(--bg-black-glass-dense);
 }
 
 .bg-glass--primary {
     backdrop-filter: blur(6px);
     background-color: var(--bg-primary-glass);
 }
+
+.bg-glass--primary-dense {
+    backdrop-filter: blur(6px);
+    background-color: var(--bg-primary-glass-dense);
+}
+
 .bg-glass--secondary {
     backdrop-filter: blur(6px);
     background-color: var(--bg-secondary-glass);
 }
-.bg-glass--accent {
-    backdrop-acce: blur(6px);
-    background-color: var(--bg-accent-glass);
+
+.bg-glass--secondary-dense {
+    backdrop-filter: blur(6px);
+    background-color: var(--bg-secondary-glass-dense);
 }
 
 .bg-glass--accent {
     backdrop-acce: blur(6px);
     background-color: var(--bg-accent-glass);
 }
+
+.bg-glass--accent-dense {
+    backdrop-acce: blur(6px);
+    background-color: var(--bg-accent-glass-dense);
+}
+
+.bg-glass--accent {
+    backdrop-acce: blur(6px);
+    background-color: var(--bg-accent-glass);
+}
+
+.bg-glass--accent-dense {
+    backdrop-acce: blur(6px);
+    background-color: var(--bg-accent-glass-dense);
+}
+
 .bg-glass--slim {
     backdrop-filter: blur(2px);
 }
+
 .bg-glass--fat {
     backdrop-filter: blur(8px);
 }
