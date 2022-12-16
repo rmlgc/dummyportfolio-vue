@@ -10,7 +10,7 @@
     position: fixed;
     bottom: -12px;
     right: 2vw;
-    transition: bottom 1s ease-in-out;
+    transition: bottom .75s cubic-bezier(1,-1.78,0,2.68);
     z-index: 1;
     .erre-interact-hover:hover &,
     &:hover {

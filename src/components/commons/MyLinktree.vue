@@ -26,7 +26,7 @@ import ErreEager from '@/components/commons/icons/ErreEager.vue'
 .text-handler {
     font-weight: 500;
 
-    transition: font-size .75s linear;
+    transition: font-size 1s cubic-bezier(.68,-0.55,.27,1.55);
     &.active {
         font-size: initial;
         font-weight: 100;
@@ -35,14 +35,14 @@ import ErreEager from '@/components/commons/icons/ErreEager.vue'
 
 .text-increase {
     font-size: 1.5rem;
-    transition: font-size .75s linear;
+    transition: font-size 1s cubic-bezier(.68,-0.55,.27,1.55);
     .active & {
         font-size: initial;
     }
 }
 .text-reduce {
     font-size: 0;
-    transition: font-size .75s linear;
+    transition: font-size 1s cubic-bezier(.68,-0.55,.27,1.55);
     .active & {
         font-size: initial;
     }
