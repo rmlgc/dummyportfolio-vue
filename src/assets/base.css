@@ -50,6 +50,10 @@
     }
 }
 
+html {
+    font-size: 18px;
+}
+
 body {
     color: var(--color-text);
     background: var(--color-background);
