@@ -268,8 +268,8 @@ onMounted(() => {
         flex: 1 1 17%;
         transition: all v-bind(milisegundosCss) ease-in-out;
         height: 100vh;
-        min-height: 50vh;
-        max-height: 400px;
+        min-height: 60vh;
+        max-height: 80vh;
         order: 1;
         position: relative;
         overflow: hidden;
@@ -293,7 +293,6 @@ onMounted(() => {
         }
         @media screen and (max-width: 700px) {
             flex: 1 1 100%;
-            min-height: 300px;
         }
 
         &-wrap {
