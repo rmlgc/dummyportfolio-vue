@@ -13,7 +13,7 @@ const heightFooter = ref(0 + 'px')
 const show = (grid) => {
     open.value = true
     $q.bottomSheet({
-        class: 'bg-glass--white bg-glass--slim',
+        class: 'bg-glass--white-dense bg-glass--slim',
         grid,
         actions: [
             {},
