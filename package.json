@@ -13,6 +13,7 @@
   },
   "dependencies": {
     "@quasar/extras": "^1.15.6",
+    "lodash": "^4.17.21",
     "pinia": "^2.0.23",
     "quasar": "^2.10.2",
     "smooth-scrollbar": "^8.8.1",
