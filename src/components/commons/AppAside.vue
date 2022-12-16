@@ -3,7 +3,9 @@ import {onMounted, ref} from 'vue'
 import {storeToRefs} from 'pinia'
 import {useWebStore} from '@//stores/useWebStore'
 import {useQuasar} from 'quasar'
+import {useRouter} from 'vue-router'
 
+const router = useRouter()
 const $q = useQuasar()
 const {settingsWebsite, webLoading} = storeToRefs(useWebStore())
 const link = ref('home')
@@ -25,7 +27,7 @@ onMounted(() => {
                         :active="link === 'home'"
                         @click="link = 'home'"
                         to="/"
-                        active-class="my-menu-link"
+                        :active-class="router.currentRoute.value.name === 'home' ? 'bg-glass--accent-dense bg-glass--fat' : ''"
                     >
                         <q-item-section avatar>
                             <q-icon name="home"/>
@@ -40,7 +42,7 @@ onMounted(() => {
                         :active="link === 'employeeSite'"
                         @click="link = 'employeeSite'"
                         to="/employee"
-                        active-class="my-menu-link"
+                        :active-class="router.currentRoute.value.name === 'employee' ? 'bg-glass--accent-dense bg-glass--fat' : ''"
                     >
                         <q-item-section avatar>
                             <q-icon name="sym_o_badge"/>
@@ -55,7 +57,7 @@ onMounted(() => {
                         :active="link === 'about'"
                         @click="link = 'about'"
                         to="/about"
-                        active-class="my-menu-link"
+                        :active-class="router.currentRoute.value.name === 'about' ? 'bg-glass--accent-dense bg-glass--fat' : ''"
                     >
                         <q-item-section avatar>
                             <q-icon name="sym_o_info"/>

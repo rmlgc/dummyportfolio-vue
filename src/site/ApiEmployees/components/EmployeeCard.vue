@@ -75,15 +75,15 @@ const onReset = () => {
 <template>
     <div ref="el" :class="`text-body1 card q-py-md ${ open ? 'open shadow-1': 'shadow-2'} `">asd
         <div class="card-head q-px-md">
-            <h2 class="card-head-subtitle text-h4 q-mb-none q-pb-none">{{ lastName }}</h2>
-            <h2 class="card-head-title text-h3 q-mt-none q-pt-none">{{ firstName }}</h2>
+            <h2 class="card-head-subtitle text-h4 q-my-none q-pb-none">{{ lastName }}</h2>
+            <p class="card-head-title text-h3 q-my-none q-pt-none">{{ firstName }}</p>
+            <p class="text-body2 text-bold">{{ email }}</p>
             <q-btn padding="xs" @click="open = !open" class="absolute-top-right q-mt-lg q-mr-lg" dense fab
                    :size="`${ open == true ? '1rem' : '1.5rem' }`"
                    :icon="`${ open == true ? 'sym_o_expand_less' : 'sym_s_expand_more' }`"/>
         </div>
         <q-separator></q-separator>
         <div class="card-body  inset-shadow-down q-px-sm">
-            <p class="text-bold">{{ email }}</p>
 
             <q-form v-if="!knowPassword" ref="myForm"
                     @submit="onSubmit"

@@ -2,7 +2,7 @@
 import MyLinktree from '@/components/commons/MyLinktree.vue'
 import {useQuasar} from 'quasar'
 import {useRouter} from 'vue-router'
-import { ref, onMounted } from 'vue'
+import {ref, onMounted} from 'vue'
 
 const $q = useQuasar()
 const router = useRouter()
@@ -13,7 +13,7 @@ const heightFooter = ref(0 + 'px')
 const show = (grid) => {
     open.value = true
     $q.bottomSheet({
-        class: 'bg-glass--white-dense bg-glass--slim',
+        class: 'footer-menu bg-glass--white-dense bg-glass--slim',
         grid,
         actions: [
             {},
@@ -22,6 +22,7 @@ const show = (grid) => {
                 icon: 'home',
                 id: 'home',
                 url: '/',
+                classes: router.currentRoute.value.name === 'home' ? 'bg-glass--accent-dense bg-glass--fat' : '',
             },
             {},
             {
@@ -29,6 +30,7 @@ const show = (grid) => {
                 icon: 'sym_o_badge',
                 id: 'employeeSite',
                 url: '/employee',
+                classes: router.currentRoute.value.name === 'employee' ? 'bg-glass--accent-dense bg-glass--fat' : '',
             },
             {},
             {
@@ -36,6 +38,7 @@ const show = (grid) => {
                 icon: 'info',
                 id: 'about',
                 url: '/about',
+                classes: router.currentRoute.value.name === 'about' ? 'bg-glass--accent-dense bg-glass--fat' : '',
             },
         ]
     }).onOk(action => {
@@ -47,9 +50,9 @@ const show = (grid) => {
         // console.log('I am triggered on both OK and Cancel')
         open.value = false
     })
-        heightFooter.value = document.getElementsByTagName('footer')[0].offsetHeight + 'px';
-        console.log(heightFooter)
-        console.log('_____________')
+    heightFooter.value = document.getElementsByTagName('footer')[0].offsetHeight + 'px';
+    console.log(heightFooter)
+    console.log('_____________')
 }
 
 </script>
@@ -66,7 +69,7 @@ const show = (grid) => {
     <q-footer v-if="!$q.screen.lt.md">
     </q-footer>
 </template>
-<style scoped lang="scss">
+<style lang="scss">
 footer {
     transition: bottom 200ms 0s linear;
     bottom: 0px;
@@ -74,5 +77,9 @@ footer {
     &.active {
         bottom: calc(100% - v-bind(heightFooter));
     }
+}
+
+.footer-menu .active {
+    background-color: var(--bg-accent-glass-dense);
 }
 </style>
