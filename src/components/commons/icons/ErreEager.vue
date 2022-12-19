@@ -1,17 +1,31 @@
 <script setup>
 
+const props = defineProps({
+    fixed:{
+        type :Boolean,
+        default:false,
+    },
+    class:{
+        type :String,
+        default:'',
+    },
+})
+
 </script>
 <template>
-        <img alt="Erre logo" class="noticeme erre-logo"
+        <img alt="Erre logo" :class="`${ props.class ? props.class : props.class } noticeme erre-logo ${fixed ? 'erre-logo-fixed' : ''} `"
              src="https://avatars.githubusercontent.com/u/22599950?s=50&v=5"/>
 </template>
 <style scoped lang="scss">
 .erre-logo{
-    position: fixed;
-    bottom: -12px;
-    right: 2vw;
     transition: bottom .75s cubic-bezier(1,-1.78,0,2.68);
     z-index: 1;
+    bottom: -12px;
+    position: relative;
+    &-fixed{
+        position: fixed;
+        right: 2vw;
+    }
     .erre-interact-hover:hover &,
     &:hover {
         bottom: 0;

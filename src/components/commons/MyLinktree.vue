@@ -19,7 +19,7 @@ import ErreEager from '@/components/commons/icons/ErreEager.vue'
         <span class="text-reduce">oronado</span>
         <span>&nbsp;</span>
         <span class="text-increase">© 2022</span>
-        <ErreEager/>
+        <ErreEager fixed/>
     </a>
 </template>
 <style scoped lang="scss">

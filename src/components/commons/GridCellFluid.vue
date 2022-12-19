@@ -136,12 +136,23 @@ onMounted(() => {
             <div :class="`grid-cell-content container ${ val == true ? 'bg-glass' : 'grid-cell-content--center'}`">
                 <q-btn :class="`grid-cell-btn q-mt-sm shadow-3 ${ val == true ? '' : '' }`" dense round :size="`${ val == true ? '0.75rem' : '1.25rem' }`"
                        :icon="`${ val == true ? 'sym_o_close' : 'sym_s_touch_app' }`"/>
-                <div :class="`grid-cell-title text-bold bg-animated-text q-mx-sm ${ val == true ? 'text-h5 q-mb-md' : 'text-h3' }`">
-                    <slot name="title">default</slot>
+                <div :class="`grid-cell-title text-bold bg-animated-text q-mx-sm text-center ${ val == true ? 'text-h5 q-mb-md' : 'text-h3' }`">
+                    <slot name="title">Dummy title cell</slot>
                 </div>
                 <div v-smth-scrollbar v-show="val"
                      :class="`smth-scrollbar-shadow grid-cell-body ${ val == true ? 'text-body1 bg-glass bg-glass--white bg-glass--fat' : 'text-none' }`">
                     <slot>
+                        <p class="text-center text-body2">
+                            dummy text to see cell behavior
+                        </p>
+                        <blockquote class="quote">
+                            <small>
+                                <i>
+                                    <q-icon name="format_quote"></q-icon>
+                                    ... Bla bla blah ... a lot of text ...
+                                </i>
+                            </small>
+                        </blockquote>
                         <p>
                             Lorem ipsum dolor sit amet, consectetur adipiscing elit. Phasellus non nisi elit. Curabitur
                             sit
@@ -159,7 +170,8 @@ onMounted(() => {
                             commodo leo. Proin quis lobortis diam. Aenean eros leo, dapibus nec tempor pellentesque,
                             accumsan
                             nec sapien.
-
+                        </p>
+                        <p>
                             Sed efficitur nisi sed lorem elementum egestas. Vivamus consequat tincidunt turpis et
                             cursus.
                             Mauris
@@ -179,7 +191,8 @@ onMounted(() => {
                             natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Interdum et
                             malesuada
                             fames ac ante ipsum primis in faucibus. Nulla accumsan turpis porttitor interdum porttitor.
-
+                        </p>
+                        <p>
                             Maecenas ut nibh lectus. In augue justo, tincidunt elementum lectus quis, feugiat posuere
                             felis.
                             Etiam sit amet elit et augue sollicitudin sollicitudin sit amet id turpis. Aliquam
@@ -220,7 +233,8 @@ onMounted(() => {
                             sodales.
                             Ut
                             vel egestas urna. Vivamus dictum augue sed sapien gravida, eget maximus sapien viverra.
-
+                        </p>
+                        <p>
                             Phasellus at dui eu sem venenatis aliquet. Phasellus et dolor quam. Etiam at turpis odio.
                             Phasellus
                             id nisi vestibulum, consequat lorem eget, suscipit elit. Duis sit amet sem dictum, lobortis
