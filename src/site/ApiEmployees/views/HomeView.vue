@@ -5,6 +5,7 @@ import {storeToRefs} from 'pinia'
 import {useWebStore} from '@/stores/useWebStore'
 import {useEmployeeStore} from '../stores/useEmployeeStore'
 import EmployeeCard from '../components/EmployeeCard.vue'
+import EmployeeCardInline from '../components/EmployeeCardInline.vue'
 import _ from 'lodash';
 
 const {webTitle, settingsWebsite, webLoading} = storeToRefs(useWebStore())
@@ -15,20 +16,23 @@ const filterText = ref('')
 const regxFilterText = ref('Asd cono')
 const asd = ref('Asd cono')
 const open = ref(false)
+const typeCard = ref(['minimal', 'minimal-inline'])
+const typeCardIndex = ref(0)
+const employeesCategory = ref(['HHRR', 'Mannager', 'Devops', 'Scrum master', 'Front-end', 'Back-end', 'Full-stack', 'Qa-team', 'Dessigner', 'Comunity Manager'])
 
 const onFilter = () => {
     showEmployee()
 }
 
 const showEmployee = (firstName, lastName) => {
-console.log(
-    filterText.value.toLowerCase().split(' ')
-)
-    let isInclude =false
+    console.log(
+        filterText.value.toLowerCase().split(' ')
+    )
+    let isInclude = false
     for (let i = 0; i < filterText.value.toLowerCase().split(' ').length; i++) {
         filterText.value.toLowerCase().split(' ')[i]
-        if(!isInclude && _.includes(firstName.toLowerCase(), filterText.value.toLowerCase().split(' ')[i]) || _.includes(lastName.toLowerCase(), filterText.value.toLowerCase().split(' ')[i])){
-            isInclude=true
+        if (!isInclude && _.includes(firstName.toLowerCase(), filterText.value.toLowerCase().split(' ')[i]) || _.includes(lastName.toLowerCase(), filterText.value.toLowerCase().split(' ')[i])) {
+            isInclude = true
         }
     }
     return filterText.value.length <= 0 || isInclude
@@ -64,6 +68,55 @@ fetchEmployees()
                     </template>
                 </q-input>
             </q-form>
+            <q-btn-group rounded dense size="small">
+                <q-btn size="xs" dense rounded color="primary" icon-right="arrow_back_ios" label=" " @click="typeCardIndex=(typeCardIndex-1)%typeCard.length"/>
+                <q-separator vertical></q-separator>
+                <q-btn-dropdown  dense size="md"  auto-close rounded color="primary" :label="`${typeCard[typeCardIndex]}`">
+                    <!-- dropdown content goes here -->
+                    <q-list padding style="width: 250px">
+                        <q-item clickable>
+                            <q-item-section avatar>
+                                <q-avatar icon="folder" color="purple" text-color="white" />
+                            </q-item-section>
+                            <q-item-section>
+                                <q-item-label>Minimal</q-item-label>
+                                <q-item-label caption > simple card</q-item-label>
+                            </q-item-section>
+                            <q-item-section side class="hidden">
+                                <q-icon name="info" color="amber" />
+                            </q-item-section>
+                        </q-item>
+
+                        <q-item clickable>
+                            <q-item-section avatar>
+                                <q-avatar icon="folder" color="purple" text-color="white" />
+                            </q-item-section>
+                            <q-item-section>
+                                <q-item-label>Minimal inline</q-item-label>
+                                <q-item-label caption>name and lastname inline</q-item-label>
+                            </q-item-section>
+                        </q-item>
+
+                        <q-separator inset />
+                        <q-item-label header>Files</q-item-label>
+
+                        <q-item clickable>
+                            <q-item-section avatar>
+                                <q-avatar icon="assignment" color="teal" text-color="white" />
+                            </q-item-section>
+                            <q-item-section>
+                                <q-item-label>London</q-item-label>
+                                <q-item-label caption>March 1st, 2018</q-item-label>
+                            </q-item-section>
+                            <q-item-section side>
+                                <q-icon name="info" color="amber" />
+                            </q-item-section>
+                        </q-item>
+                    </q-list>
+                </q-btn-dropdown>
+                <q-separator vertical></q-separator>
+                <q-btn size="xs" dense rounded color="primary" icon="arrow_forward_ios" label=" " @click="typeCardIndex=(typeCardIndex+1)%typeCard.length"/>
+            </q-btn-group>
             <q-btn padding="xs" @click="open = !open" class="" dense fab
                    :size="`${ open == true ? '1rem' : '1.5rem' }`"
                    :icon="`${ open == true ? 'sym_o_expand_less' : 'sym_s_expand_more' }`"/>
@@ -72,13 +125,22 @@ fetchEmployees()
     <div v-if="!loading" class="container q-px-sm q-pb-lg">
         <h1 class="text-h2">Lista empleados</h1>
         <div class="employee-list q-pt-xs">
-            <EmployeeCard v-show="showEmployee(firstName, lastName)"
+            <EmployeeCard v-if="typeCard[typeCardIndex]=='minimal'" v-show="showEmployee(firstName, lastName)"
                           v-for="{id, lastName, firstName, email, contactNumber, salary, age, address, imageUrl ,dob} in employees"
                           :id="id" :lastName="lastName" :firstName="firstName" :email="email"
                           :contactNumber="contactNumber"
-                          :salary="salary" :age="age" :address="address" :imageUrl="imageUrl" :dob="dob"
-                          :key="id">
+                          :salary="salary" :age="age" :address="address" :imageUrl="`https://api.lorem.space/image/face?w=1${(id +  1 ) > 10 ? id : '0'+id}`" :dob="dob"
+                          :category="`${employeesCategory[Math.floor(Math.random() * (employeesCategory.length - 0 + 1) ) + 0]}`"
+                          :key="`${id}-default`">
             </EmployeeCard>
+            <EmployeeCardInline v-else-if="typeCard[typeCardIndex]=='minimal-inline'" v-show="showEmployee(firstName, lastName)"
+                                v-for="{id, lastName, firstName, email, contactNumber, salary, age, address, imageUrl ,dob} in employees"
+                                :id="id" :lastName="lastName" :firstName="firstName" :email="email"
+                                :contactNumber="contactNumber"
+                                :salary="salary" :age="age" :address="address" :imageUrl="`https://api.lorem.space/image/face?w=1${(id +  1 ) > 10 ? id : '0'+id}`" :dob="dob"
+                                :category="`${employeesCategory[Math.floor(Math.random() * (employeesCategory.length - 0 + 1) ) + 0]}`"
+                                :key="`${id}-minimal`">
+            </EmployeeCardInline>
         </div>
     </div>
     <div v-if="!loading && $q.screen.gt.sm"

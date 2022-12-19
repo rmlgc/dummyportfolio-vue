@@ -76,8 +76,7 @@ const onReset = () => {
 <template>
     <div ref="el" :class="`text-body1 card q-py-md ${ open ? 'open shadow-1': 'shadow-2'} `">asd
         <div class="card-head q-px-md">
-            <h2 class="card-head-subtitle text-h4 q-my-none q-pb-none">{{ lastName }} {{(id > 9)}}</h2>
-            <p class="card-head-title text-h3 q-my-none q-pt-none">{{ firstName }}</p>
+            <h2 class="card-head-subtitle text-h4 q-my-none q-pb-none">{{ firstName }} {{ lastName }}</h2>
             <p class="text-body2 q-my-xs">{{ category }}</p>
             <p class="text-body2 text-bold">{{ email }}</p>
             <q-btn padding="xs" @click="open = !open" class="absolute-top-right q-mt-md q-mr-md" dense fab
@@ -177,13 +176,12 @@ const onReset = () => {
     }
 
     &-head {
-        word-break: break-all;
         z-index: 1;
         position: relative;
 
         &-subtitle {
             margin-left: clamp(20px, 7vw, 80px);
-            margin-right: 35px;
+            margin-right: 45px;
         }
     }
 
