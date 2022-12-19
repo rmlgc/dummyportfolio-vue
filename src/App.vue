@@ -22,7 +22,7 @@ onMounted(async () => {
 watch(() => settingsWebsite.value, (n) => {
 });
 
-watch(() => router, (n) => {
+watch(() => settingsWebsite, (n) => {
 });
 </script>
 

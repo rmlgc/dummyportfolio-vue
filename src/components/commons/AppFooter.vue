@@ -3,7 +3,9 @@ import MyLinktree from '@/components/commons/MyLinktree.vue'
 import {useQuasar} from 'quasar'
 import {useRouter} from 'vue-router'
 import {ref, onMounted} from 'vue'
-
+import {storeToRefs} from "pinia/dist/pinia";
+import {useWebStore} from "@/stores/useWebStore";
+const {settingsWebsite} = storeToRefs(useWebStore())
 const $q = useQuasar()
 const router = useRouter()
 const open = ref(false)
@@ -16,7 +18,6 @@ const show = (grid) => {
         class: 'footer-menu bg-glass--white-dense bg-glass--slim',
         grid,
         actions: [
-            {},
             {
                 label: 'Home',
                 icon: 'home',
@@ -61,7 +62,40 @@ const show = (grid) => {
               reveal elevated :class="`bg-glass--primary bg-glass--white ${ open === true ? 'active' : '' }`">
         <q-toolbar>
             <q-separator vertical/>
-            <q-btn outline flat icon="sym_o_menu" @click="show(false)"/>
+            <q-btn outline flat icon="menu" @click="show(false)"/>
+            <q-separator vertical/>
+            <q-btn-dropdown  outline flat auto-close dropdown-icon="settings" :label="``" >
+                <!-- dropdown content goes here -->
+                <div class="row no-wrap q-pa-md">
+                    <div class="column">
+                        <div class="text-h6 q-mb-md">Settings</div>
+                        <q-toggle v-model="settingsWebsite.prefersColorScheme"
+                                  checked-icon="&#x1f31e;"
+                                  unchecked-icon="&#x1f31c;"
+                                  size="xl"
+                                  :label="`${settingsWebsite.prefersColorScheme}`"
+                        ></q-toggle>
+                    </div>
+
+                    <q-separator vertical inset class="q-mx-lg" />
+
+                    <div class="column items-center hidden">
+                        <q-avatar size="72px">
+                            <img src="https://cdn.quasar.dev/img/boy-avatar.png">
+                        </q-avatar>
+
+                        <div class="text-subtitle1 q-mt-md q-mb-xs">John Doe</div>
+
+                        <q-btn
+                            color="primary"
+                            label="Logout"
+                            push
+                            size="sm"
+                            v-close-popup
+                        />
+                    </div>
+                </div>
+            </q-btn-dropdown>
             <q-separator vertical/>
             <MyLinktree/>
         </q-toolbar>

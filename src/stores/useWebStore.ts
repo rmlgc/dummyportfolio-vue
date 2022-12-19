@@ -1,11 +1,12 @@
 import {defineStore} from 'pinia';
-import {Cookies, LocalStorage} from "quasar";
+import {Cookies, LocalStorage, Dark } from "quasar";
+
 
 const storageSettingsWebsite = LocalStorage.getItem('settingsWebsite')
 const settingsWebsite = {
 // @ts-ignore
     leftDrawerOpen: storageSettingsWebsite ? storageSettingsWebsite.leftDrawerOpen : false,
-    prefersColorScheme: 'auto'
+    prefersColorScheme: Dark.isActive,
 }
 
 export const useWebStore = defineStore({
