@@ -45,7 +45,14 @@ const router = createRouter({
             path: '/author/:username',
             name: 'author',
             component: AuthorView
-        }
+        },
+        {
+            path: '/:pathMatch(.*)*',
+            component: () => import('@/views/PageNotFound.vue'),
+            meta: {
+                requiresAuth: true
+            }
+        },
     ]
 })
 
