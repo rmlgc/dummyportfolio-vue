@@ -269,7 +269,7 @@ onMounted(() => {
         transition: all v-bind(milisegundosCss) ease-in-out;
         height: 100vh;
         min-height: 60vh;
-        max-height: 80vh;
+        max-height: 70vh;
         order: 1;
         position: relative;
         overflow: hidden;
