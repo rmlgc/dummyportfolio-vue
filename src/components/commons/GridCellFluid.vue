@@ -133,8 +133,10 @@ onMounted(() => {
                 class="grid-cell-image"
                 loading
             />
-            <div :class="`grid-cell-content container ${ val == true ? 'bg-glass' : ''}`">
-                <div :class="`grid-cell-title text-bold bg-animated-text q-mx-sm ${ val == true ? 'text-h4' : 'text-h2' }`">
+            <div :class="`grid-cell-content container ${ val == true ? 'bg-glass' : 'grid-cell-content--center'}`">
+                <q-btn :class="`grid-cell-btn q-mt-sm shadow-3 ${ val == true ? '' : '' }`" dense round :size="`${ val == true ? '0.75rem' : '1.25rem' }`"
+                       :icon="`${ val == true ? 'sym_o_close' : 'sym_s_touch_app' }`"/>
+                <div :class="`grid-cell-title text-bold bg-animated-text q-mx-sm ${ val == true ? 'text-h5 q-mb-md' : 'text-h3' }`">
                     <slot name="title">default</slot>
                 </div>
                 <div v-smth-scrollbar v-show="val"
@@ -232,8 +234,6 @@ onMounted(() => {
                     </slot>
                 </div>
             </div>
-            <q-btn class="absolute-top-right q-mt-sm q-mr-sm" dense fab :size="`${ val == true ? '1.5rem' : '5rem' }`"
-                   :icon="`${ val == true ? 'sym_o_close' : 'sym_s_touch_app' }`"/>
         </div>
         <div :class="`dragableHover shadow-1 shadow-up-12 ${animationClass[getRndInteger(0, 2)]}`"></div>
     </div>
@@ -364,15 +364,19 @@ onMounted(() => {
         }
 
         &-content {
+            transition: all .5s cubic-bezier(.68,-0.55,.27,1.55);
             height: 100%;
-            //z-index: ;
             position: relative;
             overflow: hidden;
             display: flex;
-            justify-content: space-evenly;
+            justify-content: space-around;
             align-items: center;
             flex-flow: column;
-            gap: 20px;
+            gap: 12px;
+            &--center{
+                justify-content: center;
+                gap: 8px;
+            }
         }
 
         &-title {
@@ -383,9 +387,9 @@ onMounted(() => {
             overflow: hidden;
             transition: all v-bind(milisegundosCss) ease-in-out;
 
-            .open & {
-                max-height: 230px;
-            }
+        }
+        &-btn{
+            transition: all .5s cubic-bezier(.68,-0.55,.27,1.55);
         }
     }
 }
