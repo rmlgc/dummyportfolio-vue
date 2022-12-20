@@ -6,7 +6,7 @@ import ErreEager from '@/components/commons/icons/ErreEager.vue'
 </script>
 <template>
     <a href="https://linktr.ee/rommelgc" rel="noopener" target="_blank"
-       :class="`text-handler text-amber q-px-md erre-interact-hover`">
+       :class="`text-handler text-amber q-px-xs erre-interact-hover`">
         <span class="text-increase">R</span>
         <span class="text-reduce">om</span>
         <span>m</span>

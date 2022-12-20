@@ -1,11 +1,12 @@
 <script setup>
 import WorkInProgress from '../../../components/commons/WorkinProgress.vue'
-import {ref} from "vue";
+import {reactive, ref} from "vue";
 import {storeToRefs} from 'pinia'
 import {useWebStore} from '@/stores/useWebStore'
 import {useEmployeeStore} from '../stores/useEmployeeStore'
 import EmployeeCard from '../components/EmployeeCard.vue'
 import EmployeeCardInline from '../components/EmployeeCardInline.vue'
+import EmployeeCardSlide from '../components/EmployeeCardSlide.vue'
 import _ from 'lodash';
 
 const {webTitle, settingsWebsite, webLoading} = storeToRefs(useWebStore())
@@ -16,7 +17,25 @@ const filterText = ref('')
 const regxFilterText = ref('Asd cono')
 const asd = ref('Asd cono')
 const open = ref(false)
-const typeCard = ref(['minimal', 'minimal-inline'])
+const typeCard = reactive([
+    {
+        card: 'slide',
+        name: 'Slide',
+        description: `**Tarjetas de empleados en desarrollo**
+        Tarjetas con la imagen en grande  con animación al desplegar la información
+        `,
+    },
+    {
+        card: 'minimal-inline',
+        name: 'Minimal inline',
+        description: 'Tarjetas con un diseño simple nombre y apellido en la misma linea',
+    },
+    {
+        card: 'minimal',
+        name: 'Minimal',
+        description: 'Tarjetas Tarjetas con un diseño simple se presenta el apellido en pequeño y el nombre en grande',
+    },
+])
 const typeCardIndex = ref(0)
 const employeesCategory = ref(['HHRR', 'Mannager', 'Devops', 'Scrum master', 'Front-end', 'Back-end', 'Full-stack', 'Qa-team', 'Dessigner', 'Comunity Manager'])
 
@@ -25,9 +44,6 @@ const onFilter = () => {
 }
 
 const showEmployee = (firstName, lastName) => {
-    console.log(
-        filterText.value.toLowerCase().split(' ')
-    )
     let isInclude = false
     for (let i = 0; i < filterText.value.toLowerCase().split(' ').length; i++) {
         filterText.value.toLowerCase().split(' ')[i]
@@ -42,6 +58,12 @@ webTitle.value = 'Employee'
 
 fetchEmployees()
 
+const typeCardPosition = (pName) => {
+    let value = _.findIndex(typeCard, {card: pName})
+    if (value >= 0) {
+        typeCardIndex.value = value
+    }
+}
 
 </script>
 <template>
@@ -68,79 +90,107 @@ fetchEmployees()
                     </template>
                 </q-input>
             </q-form>
-            <q-btn-group rounded dense size="small">
-                <q-btn size="xs" dense rounded color="primary" icon-right="arrow_back_ios" label=" " @click="typeCardIndex=(typeCardIndex-1)%typeCard.length"/>
-                <q-separator vertical></q-separator>
-                <q-btn-dropdown  dense size="md"  auto-close rounded color="primary" :label="`${typeCard[typeCardIndex]}`">
-                    <!-- dropdown content goes here -->
-                    <q-list padding style="width: 250px">
-                        <q-item clickable>
-                            <q-item-section avatar>
-                                <q-avatar icon="folder" color="purple" text-color="white" />
-                            </q-item-section>
-                            <q-item-section>
-                                <q-item-label>Minimal</q-item-label>
-                                <q-item-label caption > simple card</q-item-label>
-                            </q-item-section>
-                            <q-item-section side class="hidden">
-                                <q-icon name="info" color="amber" />
-                            </q-item-section>
-                        </q-item>
 
-                        <q-item clickable>
-                            <q-item-section avatar>
-                                <q-avatar icon="folder" color="purple" text-color="white" />
-                            </q-item-section>
-                            <q-item-section>
-                                <q-item-label>Minimal inline</q-item-label>
-                                <q-item-label caption>name and lastname inline</q-item-label>
-                            </q-item-section>
-                        </q-item>
-
-                        <q-separator inset />
-                        <q-item-label header>Files</q-item-label>
-
-                        <q-item clickable>
-                            <q-item-section avatar>
-                                <q-avatar icon="assignment" color="teal" text-color="white" />
-                            </q-item-section>
-                            <q-item-section>
-                                <q-item-label>London</q-item-label>
-                                <q-item-label caption>March 1st, 2018</q-item-label>
-                            </q-item-section>
-                            <q-item-section side>
-                                <q-icon name="info" color="amber" />
-                            </q-item-section>
-                        </q-item>
-                    </q-list>
-                </q-btn-dropdown>
-                <q-separator vertical></q-separator>
-                <q-btn size="xs" dense rounded color="primary" icon="arrow_forward_ios" label=" " @click="typeCardIndex=(typeCardIndex+1)%typeCard.length"/>
-            </q-btn-group>
-            <q-btn padding="xs" @click="open = !open" class="" dense fab
+            <q-btn padding="xs" @click="open = !open" class="hidden" dense fab
                    :size="`${ open == true ? '1rem' : '1.5rem' }`"
                    :icon="`${ open == true ? 'sym_o_expand_less' : 'sym_s_expand_more' }`"/>
         </div>
     </div>
     <div v-if="!loading" class="container q-px-sm q-pb-lg">
-        <h1 class="text-h2">Lista empleados</h1>
+        <h1 class="text-h2">Lista empleados </h1>
+        <q-btn-group rounded dense size="small">
+            <q-btn size="xs" dense rounded color="primary" icon-right="arrow_back_ios"
+                   label=" "
+                   @click="typeCardIndex=(typeCardIndex-1)%typeCard.length <0 ? typeCard.length-1 : (typeCardIndex-1)%typeCard.length "/>
+            <q-separator vertical></q-separator>
+            <q-btn-dropdown dense size="md" auto-close rounded color="primary"
+                            :label="`${typeCard[typeCardIndex].name}`">
+                <!-- dropdown content goes here -->
+                <q-list padding style="width: 250px">
+                    <q-item clickable @click="typeCardPosition('minimal')">
+                        <q-item-section avatar>
+                            <q-avatar icon="view_agenda" color="purple" text-color="white"/>
+                        </q-item-section>
+                        <q-item-section>
+                            <q-item-label>Minimal</q-item-label>
+                            <q-item-label caption> simple card</q-item-label>
+                        </q-item-section>
+                        <q-item-section side class="hidden">
+                            <q-icon name="info" color="amber"/>
+                        </q-item-section>
+                    </q-item>
+
+                    <q-item clickable @click="typeCardPosition('minimal-inline')">
+                        <q-item-section avatar>
+                            <q-avatar icon="view_agenda" color="purple" text-color="white"/>
+                        </q-item-section>
+                        <q-item-section>
+                            <q-item-label>Minimal inline</q-item-label>
+                            <q-item-label caption>name and lastname inline</q-item-label>
+                        </q-item-section>
+                    </q-item>
+
+                    <q-separator inset/>
+                    <q-item-label header>Files</q-item-label>
+
+                    <q-item clickable @click="typeCardPosition('slide')">
+                        <q-item-section avatar>
+                            <q-avatar icon="assignment" color="teal" text-color="white"/>
+                        </q-item-section>
+                        <q-item-section>
+                            <q-item-label>London</q-item-label>
+                            <q-item-label caption>March 1st, 2018</q-item-label>
+                        </q-item-section>
+                        <q-item-section side>
+                            <q-icon name="info" color="amber"/>
+                        </q-item-section>
+                    </q-item>
+                </q-list>
+            </q-btn-dropdown>
+            <q-separator vertical></q-separator>
+            <q-btn size="xs" dense rounded color="primary" icon="arrow_forward_ios" label=" "
+                   @click="typeCardIndex=(typeCardIndex+1)%typeCard.length"/>
+        </q-btn-group>
+        <p class="text-body2">
+            {{ typeCard[typeCardIndex].description }}
+        </p>
+        <q-separator/>
+        <br>
         <div class="employee-list q-pt-xs">
-            <EmployeeCard v-if="typeCard[typeCardIndex]=='minimal'" v-show="showEmployee(firstName, lastName)"
+            <EmployeeCard v-show="typeCard[typeCardIndex].card=='minimal' && showEmployee(firstName, lastName)"
                           v-for="{id, lastName, firstName, email, contactNumber, salary, age, address, imageUrl ,dob} in employees"
                           :id="id" :lastName="lastName" :firstName="firstName" :email="email"
                           :contactNumber="contactNumber"
-                          :salary="salary" :age="age" :address="address" :imageUrl="`https://api.lorem.space/image/face?w=1${(id +  1 ) > 10 ? id : '0'+id}`" :dob="dob"
+                          :salary="salary" :age="age" :address="address"
+                          :imageUrl="`https://api.lorem.space/image/face?w=1${(id +  1 ) > 10 ? id : '0'+id}`"
+                          :dob="dob"
                           :category="`${employeesCategory[Math.floor(Math.random() * (employeesCategory.length - 0 + 1) ) + 0]}`"
                           :key="`${id}-default`">
             </EmployeeCard>
-            <EmployeeCardInline v-else-if="typeCard[typeCardIndex]=='minimal-inline'" v-show="showEmployee(firstName, lastName)"
-                                v-for="{id, lastName, firstName, email, contactNumber, salary, age, address, imageUrl ,dob} in employees"
-                                :id="id" :lastName="lastName" :firstName="firstName" :email="email"
-                                :contactNumber="contactNumber"
-                                :salary="salary" :age="age" :address="address" :imageUrl="`https://api.lorem.space/image/face?w=1${(id +  1 ) > 10 ? id : '0'+id}`" :dob="dob"
-                                :category="`${employeesCategory[Math.floor(Math.random() * (employeesCategory.length - 0 + 1) ) + 0]}`"
-                                :key="`${id}-minimal`">
+            <EmployeeCardInline
+                v-show="typeCard[typeCardIndex].card=='minimal-inline' && showEmployee(firstName, lastName)"
+                v-for="{id, lastName, firstName, email, contactNumber, salary, age, address, imageUrl ,dob} in employees"
+                :id="id" :lastName="lastName" :firstName="firstName" :email="email"
+                :contactNumber="contactNumber"
+                :salary="salary" :age="age" :address="address"
+                :imageUrl="`https://api.lorem.space/image/face?w=1${(id +  1 ) > 10 ? id : '0'+id}`"
+                :dob="dob"
+                :category="`${employeesCategory[Math.floor(Math.random() * (employeesCategory.length - 0 + 1) ) + 0]}`"
+                :key="`${id}-minimal`">
             </EmployeeCardInline>
+        </div>
+        <div v-show="typeCard[typeCardIndex].card=='slide'" class="masonry-with-columns">
+            <EmployeeCardSlide v-show="showEmployee(firstName, lastName)"
+                               v-for="{id, lastName, firstName, email, contactNumber, salary, age, address, imageUrl ,dob} in employees"
+                               :id="id" :lastName="lastName" :firstName="firstName" :email="email"
+                               :contactNumber="contactNumber"
+                               :salary="salary" :age="age" :address="address"
+                               :imageUrl="`https://api.lorem.space/image/face?w=4${(id +  1 ) > 10 ? id : '0'+id}`"
+                               :dob="dob"
+                               :category="`${employeesCategory[Math.floor(Math.random() * (employeesCategory.length - 0 + 1) ) + 0]}`"
+                               :key="`${id}-default`">
+
+            </EmployeeCardSlide>
         </div>
     </div>
     <div v-if="!loading && $q.screen.gt.sm"
@@ -175,6 +225,22 @@ fetchEmployees()
     </div>
 </template>
 <style lang="scss">
+.masonry-with-columns {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+    grid-gap: 1px;
+    grid-auto-rows: minmax(180px, auto);
+    grid-auto-flow: dense;
+    padding: 1px;
+    @media screen and (max-width: 1500px) {
+        grid-template-columns: repeat(auto-fill, minmax(400px, 1fr));
+        grid-template-columns: repeat(auto-fill, minmax(400px, 1fr));
+    }
+    @media screen and (max-width: 900px) {
+        grid-template-columns: repeat(auto-fill, minmax(100%, 1fr));
+    }
+}
+
 .employee {
 
     &-list {

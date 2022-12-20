@@ -22,8 +22,8 @@ webTitle.value = 'Dummyportfolio-vue'
                         </span>
                     </p>
                 </template>
-                <p class="text-bold">Simple web app where list data from <a
-                    href="https://hub.dummyapis.com" rel="noopener" target="_blank" class="text-uppercase text-body2">https://hub.dummyapis.com/</a>
+                <p class="text-bold">Simple web app where list data from
+                    <router-link to="www.dummyapis.com" rel="noopener" target="_blank" >https://hub.dummyapis.com</router-link>
                     <q-btn rounded to="/employee" icon-right="sym_o_link" class="q-mx-md"> See App</q-btn>
                 </p>
                 <p>

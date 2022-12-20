@@ -10,6 +10,7 @@ const passError = ref(false)
 const passErrorMessage = ref('')
 const resetTimer = ref(0)
 const resetTimerMax = ref(10000)
+
 const props = defineProps(
     {
         id: Number,
@@ -23,7 +24,7 @@ const props = defineProps(
         imageUrl: String,
         dob: String,
         open: {type: Boolean, default: false},
-        category:String,
+        category: String,
     }
 )
 
@@ -163,16 +164,11 @@ const onReset = () => {
 <style lang="scss" scoped>
 
 .card {
-    background: var(--color-background-soft);
     position: relative;
-    border-radius: 16px;
     transition: all .5s linear;
-    grid-row: span 1;
-    display: flex;
-    flex-flow: column;
 
     &.open {
-        grid-row: span 2;
+
     }
 
     &-head {

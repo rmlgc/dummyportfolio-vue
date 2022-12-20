@@ -134,9 +134,11 @@ onMounted(() => {
                 loading
             />
             <div :class="`grid-cell-content container ${ val == true ? 'bg-glass' : 'grid-cell-content--center'}`">
-                <q-btn :class="`grid-cell-btn q-mt-sm shadow-3 ${ val == true ? '' : '' }`" dense round :size="`${ val == true ? '0.75rem' : '1.25rem' }`"
+                <q-btn :class="`grid-cell-btn q-mt-sm shadow-3 ${ val == true ? '' : '' }`" dense round
+                       :size="`${ val == true ? '0.75rem' : '1.25rem' }`"
                        :icon="`${ val == true ? 'sym_o_close' : 'sym_s_touch_app' }`"/>
-                <div :class="`grid-cell-title text-bold bg-animated-text q-mx-sm text-center ${ val == true ? 'text-h5 q-mb-md' : 'text-h3' }`">
+                <div
+                    :class="`grid-cell-title text-bold bg-animated-text q-mx-sm text-center ${ val == true ? 'text-h5 q-mb-md' : 'text-h3' }`">
                     <slot name="title">Dummy title cell</slot>
                 </div>
                 <div v-smth-scrollbar v-show="val"
@@ -378,7 +380,7 @@ onMounted(() => {
         }
 
         &-content {
-            transition: all .5s cubic-bezier(.68,-0.55,.27,1.55);
+            transition: all .5s cubic-bezier(.68, -0.55, .27, 1.55);
             height: 100%;
             position: relative;
             overflow: hidden;
@@ -387,7 +389,8 @@ onMounted(() => {
             align-items: center;
             flex-flow: column;
             gap: 12px;
-            &--center{
+
+            &--center {
                 justify-content: center;
                 gap: 8px;
             }
@@ -402,8 +405,9 @@ onMounted(() => {
             transition: all v-bind(milisegundosCss) ease-in-out;
 
         }
-        &-btn{
-            transition: all .5s cubic-bezier(.68,-0.55,.27,1.55);
+
+        &-btn {
+            transition: all .5s cubic-bezier(.68, -0.55, .27, 1.55);
         }
     }
 }
@@ -628,6 +632,4 @@ onMounted(() => {
         left: v-bind(actualTopPositionCss);
     }
 }
-
-
 </style>

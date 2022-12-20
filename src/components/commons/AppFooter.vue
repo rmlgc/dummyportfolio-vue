@@ -64,7 +64,7 @@ const show = (grid) => {
             <q-separator vertical/>
             <q-btn outline flat icon="menu" @click="show(false)"/>
             <q-separator vertical/>
-            <q-btn-dropdown  outline flat auto-close dropdown-icon="settings" :label="``" >
+            <q-btn-dropdown class="hidden" outline flat auto-close dropdown-icon="settings" :label="``" >
                 <!-- dropdown content goes here -->
                 <div class="row no-wrap q-pa-md">
                     <div class="column">
