@@ -1,7 +1,9 @@
-<script setup>
+<script setup lang="ts">
 import {ref, onMounted} from 'vue'
 import {scroll} from 'quasar'
 import Scrollbar from 'smooth-scrollbar';
+import {spring} from "motion"
+import {Motion, Presence} from "@motionone/vue";
 
 const val = ref(false)
 const root = ref(null)
@@ -27,11 +29,13 @@ const randomSize7 = ref(getRndInteger(50, 385) + 'px')
 const randomSize8 = ref(getRndInteger(50, 385) + 'px')
 const beatSize1 = ref('150px')
 
-const props = defineProps({
-    image: null,
-    placeholderSrc: 'data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAJYAAACWBAMAAADOL2zRAAAAG1BMVEXMzMyWlpaqqqq3t7fFxcW+vr6xsbGjo6OcnJyLKnDGAAAACXBIWXMAAA7EAAAOxAGVKw4bAAABAElEQVRoge3SMW+DMBiE4YsxJqMJtHOTITPeOsLQnaodGImEUMZEkZhRUqn92f0MaTubtfeMh/QGHANEREREREREREREtIJJ0xbH299kp8l8FaGtLdTQ19HjofxZlJ0m1+eBKZcikd9PWtXC5DoDotRO04B9YOvFIXmXLy2jEbiqE6Df7DTleA5socLqvEFVxtJyrpZFWz/pHM2CVte0lS8g2eDe6prOyqPglhzROL+Xye4tmT4WvRcQ2/m81p+/rdguOi8Hc5L/8Qk4vhZzy08DduGt9eVQyP2qoTM1zi0/uf4hvBWf5c77e69Gf798y08L7j0RERERERERERH9P99ZpSVRivB/rgAAAABJRU5ErkJggg==',
-    to: 'ddd',
-})
+interface Props {
+    image?: string,
+    placeholderSrc?: number,
+    to?: string,
+}
+
+const props = defineProps<Props>()
 
 function getRndInteger(min, max) {
     return Math.floor(Math.random() * (max - min)) + min;
@@ -127,12 +131,7 @@ onMounted(() => {
          ref="root"
          :class="`grid-cell bg-animated cursor-pointer inset-shadow-down ${ val == true ? 'open' : '' }`">
         <div class="grid-cell-wrap bg-animated-i">
-            <q-img
-                v-if="image !== null"
-                :src="image"
-                class="grid-cell-image"
-                loading
-            />
+
             <div :class="`grid-cell-content container ${ val == true ? 'bg-glass' : 'grid-cell-content--center'}`">
                 <q-btn :class="`grid-cell-btn q-mt-sm shadow-3 ${ val == true ? '' : '' }`" dense round
                        :size="`${ val == true ? '0.75rem' : '1.25rem' }`"
@@ -251,15 +250,24 @@ onMounted(() => {
                 </div>
             </div>
         </div>
-        <div :class="`dragableHover shadow-1 shadow-up-12 ${animationClass[getRndInteger(0, 2)]}`"></div>
+        <div
+            :class="`${ image != null ? 'dragableHover--content-image' : ''} dragableHover shadow-1 shadow-up-12 ${animationClass[getRndInteger(0, 2)]}`">
+            <q-img
+                v-if="image != null"
+                :src="image"
+                class="grid-cell-image"
+                loading
+                placeholder-src=""
+            />
+        </div>
     </div>
 </template>
 <style lang="scss">
 .grid {
     & .dragableHover {
         background: inherit;
-        height: 100px;
-        width: 100px;
+        height: 200px;
+        width: 200px;
         display: block;
         border-radius: 50%;
         inset: 50% 50%;
@@ -269,6 +277,11 @@ onMounted(() => {
         opacity: 1;
         @media screen and (max-width: 700px) {
             opacity: 1;
+        }
+
+        &--content-image {
+            transform: translate(-50%, -50%);
+            overflow: hidden;
         }
     }
 
@@ -371,7 +384,7 @@ onMounted(() => {
             bottom: 0;
             right: 0;
             left: 0;
-            opacity: 1;
+            opacity: 0.7;
             transition: all v-bind(milisegundosCss) ease-in-out;
 
             .open & {
@@ -425,10 +438,10 @@ onMounted(() => {
 }
 
 .shake {
-    animation: shake 150ms ease-in-out infinite;
-    -moz-animation: shake 150ms ease-in-out infinite;
-    -webkit-animation: shake 150ms ease-in-out infinite;
-    -o-animation: shake 150ms ease-in-out infinite;
+    animation: shake 1050ms linear infinite;
+    -moz-animation: shake 1050ms linear infinite;
+    -webkit-animation: shake 1050ms linear infinite;
+    -o-animation: shake 1050ms linear infinite;
 }
 
 .swing1 {
@@ -454,19 +467,76 @@ onMounted(() => {
 
 @keyframes shake {
     0% {
-        transform: translate(-53%, -50%);
-        height: 100px;
-        width: 100px;
+        transform: translate(-50%, -53%);
+        height: 250px;
+        width: 250px;
+    }
+    0.1% {
+        transform: translate(-50%, -53%);
+
+    }
+    6.25% {
+        transform: translate(-50%, -50%);
+
+    }
+    12.5% {
+        transform: translate(-47%, -53%);
+
+    }
+    18.75% {
+        transform: translate(-50%, -50%);
+
+    }
+    25% {
+        transform: translate(-47%, -50%);
+
+    }
+    31.25% {
+        transform: translate(-50%, -50%);
+
+    }
+    37.5% {
+        transform: translate(-47%, -47%);
+
+    }
+    43.75% {
+        transform: translate(-50%, -50%);
+        height: 230px;
+        width: 230px;
     }
     50% {
-        transform: translate(-50%, -53%);
-        height: 99px;
-        width: 99px;
+        transform: translate(-50%, -47%);
+
+    }
+    56.26% {
+        transform: translate(-50%, -50%);
+        height: 230px;
+        width: 230px;
+    }
+    68.75% {
+        transform: translate(-53%, -47%);
+
+    }
+    75% {
+        transform: translate(-50%, -50%);
+
+    }
+    81.45% {
+        transform: translate(-53%, -50%);
+
+    }
+    87.7% {
+        transform: translate(-50%, -50%);
+
+    }
+    93.95% {
+        transform: translate(-53%, -53%);
+
     }
     100% {
         transform: translate(-50%, -50%);
-        height: 100px;
-        width: 100px;
+        height: 250px;
+        width: 250px;
     }
 }
 
