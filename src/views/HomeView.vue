@@ -95,7 +95,7 @@ webTitle.value = 'Dummyportfolio-vue'
                     </small>
                 </blockquote>
             </GridCellFluid>
-            <GridCellFluid>
+            <GridCellFluid image="https://images.pexels.com/photos/7948965/pexels-photo-7948965.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1">
             </GridCellFluid>
         </div>
     </div>
