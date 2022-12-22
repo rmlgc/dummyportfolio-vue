@@ -236,7 +236,7 @@ const typeCardPosition = (pName) => {
         grid-template-columns: repeat(auto-fill, minmax(400px, 1fr));
         grid-template-columns: repeat(auto-fill, minmax(400px, 1fr));
     }
-    @media screen and (max-width: 900px) {
+    @media screen and (max-width: 800px) {
         grid-template-columns: repeat(auto-fill, minmax(100%, 1fr));
     }
 }

@@ -1,15 +1,33 @@
 <script setup>
-import {defineProps, onMounted, ref} from 'vue'
+import {defineProps, onMounted, ref, toRaw} from 'vue'
 import {useQuasar} from 'quasar'
 import {Motion, Presence} from "motion/vue"
 
 const showBox = ref(true)
 const fabSlide = ref(true);
 const hideLabels = ref(true);
-const cardSlideDirection = ref('top');
+const cardSlideDirection = ref('right');
 const elCardBoxSettings = ref(null);
 const elCardBoxSettingsHeight = ref(0);
 const clickSetting = ref(true);
+const showCardContent = ref(false);
+const animationX = ref({
+    top: null,
+    right: [-600, -300, 0],
+    bottom: null,
+    left: [600, 300, 0],
+});
+const x = ref(toRaw(animationX.value[cardSlideDirection.value]));
+const animationY = ref({
+    top: [600, 300, 0],
+    right: null,
+    bottom: [-600, -300, 0],
+    left: null,
+});
+const y = ref(toRaw(animationY.value[cardSlideDirection.value]));
+
+// x.value = directionAnimateX.value[cardSlideDirection.value]
+
 
 const $q = useQuasar()
 // const myForm = ref(null)
@@ -83,7 +101,6 @@ const onReset = () => {
 onMounted(() => {
     elCardBoxSettingsHeight.value = elCardBoxSettings.value.offsetHeight
     clickSetting.value = false
-    console.log(elCardBoxSettingsHeight.value)
 })
 
 </script>
@@ -94,67 +111,94 @@ onMounted(() => {
                 class="card-box"
                 :initial="{}"
                 :transition="{
-                        duration: 3,
-                        rotate: { duration: 2 },
-                      }"
+                    duration: 3,
+                    rotate: { duration: 2 },
+                  }"
                 :animate="{
-                        opacity: 1 ,
-                        x: [-1000, -100, 100, 0],
-                        backgroundColor: 'var(--bg-primary-glass)'
-                    }"
+                    opacity: 1 ,
+                    x: [-1000, -100, 100, 0],
+                    backgroundColor: 'var(--bg-primary-glass)'
+                }"
                 :exit="{
-                        opacity: 0,
-                        x: [0, -100, 100, -1000],
-                        rotate: 0,
-                        backgroundColor: 'var(--bg-accent-glass)'
-                    }"
+                    opacity: 0,
+                    x: [0, -100, 100, -1000],
+                    rotate: 0,
+                    backgroundColor: 'var(--bg-accent-glass)'
+                }"
                 v-show="showBox">
                 <q-img
                     class="card-avatar"
                     :alt="firstName+lastName+id"
                     :src="imageUrl"
                     :ratio="19/9"
-                    :position="`${ open ? '50% 50%' : '50% 100%'}`"
+                    :position="`50% 50%'`"
                 >
-                <q-btn v-if="cardSlideDirection == 'top'"  :icon="`keyboard_arrow_${cardSlideDirection == 'top'  ? 'up' : ''}`" label="" square text-color="primary" class="absolute-bottom bg-glass--white"></q-btn>
-                <q-btn v-if="cardSlideDirection == 'right'"  :icon="`keyboard_arrow_${cardSlideDirection }`" label="" square text-color="primary" class="absolute-top q-mt-sm bg-glass--white"></q-btn>
-                <q-btn v-if="cardSlideDirection == 'bottom'"  :icon="`keyboard_arrow_${cardSlideDirection == 'bottom'  ? 'down' : ''}`" label="" square text-color="primary" class="absolute-top q-mt-sm bg-glass--white"></q-btn>
-                <q-btn v-if="cardSlideDirection == 'left'"  :icon="`keyboard_arrow_${cardSlideDirection}`" label="" square text-color="primary" class="absolute-top q-mt-sm bg-glass--white"></q-btn>
-                    <div :class="`bg-glass card-head q-px-md card-content card-content-absolute-${cardSlideDirection}`">
-                        <h2 class="card-head-subtitle text-h4 q-my-none q-pb-none">{{ firstName }} {{ lastName }}</h2>
-                        <p class="text-body2 q-my-xs">{{ category }}</p>
-                        <small class="text-body2 text-lowercase">{{ email }}</small>
-                        <div class="text-center">
-                        <q-btn padding="xs" @click="open = !open" class="q-mt-md q-mr-md" dense fab
-                               :size="`${ open == true ? '1rem' : '1.5rem' }`"
-                               :icon="`${ open == true ? 'sym_o_expand_less' : 'sym_s_expand_more' }`"/>
+                    <div v-smth-scrollbar
+                         :class="` ${showCardContent ? 'open bg-glass--fat' : ''} q-px-md q-pt-xl card-content card-content-absolute-${cardSlideDirection}`">
+                        <Presence>
+                            <Motion
+                                class="q-py-sm"
+                                :initial="{
+                                    opacity: 0,
+                                }"
+                                :transition="{
+                                    duration: 1,
+                                  }"
+                                :animate="{
+                                    opacity: 1 ,
+                                    x,
+                                    y,
+                                }"
+                                :exit="{
+                                    opacity: 0,
+                                    x: [0, -300, -600],
+                                    rotate: 0,
+                                    transition: { duration: 3 },
+                                }"
+                                v-if="showCardContent">
+                                <h2 class="bg-glass--d card-head-subtitle text-h4 q-my-none q-pb-none">{{ firstName }}
+                                    {{
+                                        lastName
+                                    }} </h2>
+                                <p class="text-body2 q-my-xs">X:{{ x }} {{ category }} Y:{{ y }}</p>
+                                <p class="text-body2 q-my-xs">{{ toRaw(animationY[cardSlideDirection]) }}</p>
+                                <small class="text-body2 text-lowercase">{{ email }}</small>
 
-                        </div>
+
+                                <div class="q-ml-lg">
+                                    <q-btn padding="xs" @click="open = !open" class="q-mt-md q-mr-md" dense fab
+                                           :size="`${ open == true ? '1rem' : '1.5rem' }`"
+                                           :icon="`${ open == true ? 'sym_o_expand_less' : 'sym_s_expand_more' }`"/>
+                                </div>
+
+                            </Motion>
+                        </Presence>
                         <Presence>
                             <Motion
                                 class="card-box"
                                 :initial="{
-                        opacity: 1,
-                        y: [0],
-                }"
+                                    opacity: 1,
+                                    y: [0],
+                                }"
                                 :transition="{
-                    duration: 1,
-                 }"
+                                    duration: 1,
+                                }"
                                 :animate="{
-                        opacity: 1,
-                        y: [-1000, 20, 0],
-                    }"
+                                    opacity: 1,
+                                    y: [-1000, 20, 0],
+                                }"
                                 :exit="{
-                        opacity: 0,
-                        y: [0, 20, -1000],
-                    }"
-                                v-show="open">
-                                <div>
-                                    <q-form v-if="!knowPassword" ref="myForm"
+                                    opacity: 0,
+                                    y: [0, 20, -1000],
+                                }"
+                                v-if="open">
+                                <div class="q-pb-lg">
+                                    <q-form v-if="!knowPassword"
+                                            ref="myForm"
                                             @submit="onSubmit"
                                     >
                                         <q-input v-if="!knowPassword"
-                                                 class="q-mb-sm text-bold bg-glass--white-dense rounded-borders"
+                                                 class="q-mb-sm q-pt-sm q-pb-xl text-bold bg-glass--white-dense rounded-borders"
                                                  dense bottom-slots outlined
                                                  v-model="pass"
                                                  label="insert 'password'"
@@ -170,7 +214,8 @@ onMounted(() => {
                                             </template>
                                         </q-input>
                                     </q-form>
-                                    <q-btn v-if="knowPassword" icon="lock_reset" dense fab-mini label="hide" type="reset"
+                                    <q-btn v-if="knowPassword" icon="lock_reset" dense fab-mini label="hide"
+                                           type="reset"
                                            color="negative" flat
                                            class="q-ml-sm" @click="onReset">
                                         <div slot="icon">
@@ -193,15 +238,18 @@ onMounted(() => {
                                                 contactNumber
                                             }}</span>
                                         </p>
-                                        <q-skeleton class="q-ml-xs" style="flex:1;" v-if="!knowPassword" type="text"/>
+                                        <q-skeleton class="q-ml-xs" style="flex:1;" v-if="!knowPassword"
+                                                    type="text"/>
 
                                     </div>
 
                                     <div class="flex items-start">
-                                        <p class="text-body2">Dirección: <span v-if="knowPassword" class="text-bold">{{
+                                        <p class="text-body2">Dirección: <span v-if="knowPassword"
+                                                                               class="text-bold">{{
                                                 address
                                             }}</span></p>
-                                        <q-skeleton class="q-ml-xs" style="flex:1;" v-if="!knowPassword" type="text"/>
+                                        <q-skeleton class="q-ml-xs" style="flex:1;" v-if="!knowPassword"
+                                                    type="text"/>
 
                                     </div>
 
@@ -210,25 +258,40 @@ onMounted(() => {
                                                 salary
                                             }}</span>
                                         </p>
-                                        <q-skeleton class="q-ml-xs" style="flex:1;" v-if="!knowPassword" type="text"/>
+                                        <q-skeleton class="q-ml-xs" style="flex:1;" v-if="!knowPassword"
+                                                    type="text"/>
 
                                     </div>
 
                                     <div class="flex items-start">
-                                        <p class="text-body2">Edad: <span v-if="knowPassword" class="text-bold">{{ age }}</span></p>
-                                        <q-skeleton class="q-ml-xs" style="flex:1;" v-if="!knowPassword" type="text"/>
-
+                                        <p class="text-body2">Edad: <span v-if="knowPassword" class="text-bold">{{
+                                                age
+                                            }}</span></p>
+                                        <q-skeleton class="q-ml-xs" style="flex:1;" v-if="!knowPassword"
+                                                    type="text"/>
                                     </div>
-
                                 </div>
                             </Motion>
                         </Presence>
                     </div>
-                    <q-separator></q-separator>
                 </q-img>
+                <q-btn v-if="cardSlideDirection == 'top'"
+                       :icon="`keyboard_arrow_${cardSlideDirection == 'top'  ? 'up' : ''}`"
+                       label="" @click="showCardContent=!showCardContent; open=false;"
+                       square text-color="primary" class="absolute-bottom bg-glass--white"></q-btn>
+                <q-btn v-if="cardSlideDirection == 'right'" :icon="`keyboard_arrow_${cardSlideDirection }`"
+                       label="" @click="showCardContent=!showCardContent; open=false;"
+                       square text-color="primary" class="absolute-top q-mt-sm bg-glass--white"></q-btn>
+                <q-btn v-if="cardSlideDirection == 'bottom'"
+                       :icon="`keyboard_arrow_${cardSlideDirection == 'bottom'  ? 'down' : ''}`"
+                       label="" @click="showCardContent=!showCardContent; open=false;"
+                       square text-color="primary" class="absolute-top q-mt-sm bg-glass--white"></q-btn>
+                <q-btn v-if="cardSlideDirection == 'left'" :icon="`keyboard_arrow_${cardSlideDirection}`"
+                       label="" @click="showCardContent=!showCardContent; open=false;"
+                       square text-color="primary" class="absolute-top q-mt-sm bg-glass--white"></q-btn>
             </Motion>
         </Presence>
-
+        <q-separator></q-separator>
         <Presence>
             <Motion class="card-box-settings"
                     v-show="clickSetting"
@@ -250,16 +313,24 @@ onMounted(() => {
                         padding="xs"
                     >
                         <q-fab-action :hide-label="!hideLabels" padding="xs" external-label label-position="top"
-                                      color="primary" @click="cardSlideDirection='top'" icon="keyboard_arrow_up"
+                                      color="primary"
+                                      @click="cardSlideDirection='top' ; x = toRaw(animationX[cardSlideDirection]); y = toRaw(animationY[cardSlideDirection])"
+                                      icon="keyboard_arrow_up"
                                       label="Top"/>
                         <q-fab-action :hide-label="!hideLabels" padding="xs" external-label label-position="top"
-                                      color="secondary" @click="cardSlideDirection='right'" icon="keyboard_arrow_right"
+                                      color="secondary"
+                                      @click="cardSlideDirection='right' ; x = toRaw(animationX[cardSlideDirection]); y = toRaw(animationY[cardSlideDirection])"
+                                      icon="keyboard_arrow_right"
                                       label="Right"/>
                         <q-fab-action :hide-label="!hideLabels" padding="xs" external-label label-position="top"
-                                      color="orange" @click="cardSlideDirection='bottom'" icon="keyboard_arrow_down"
+                                      color="orange"
+                                      @click="cardSlideDirection='bottom' ; x = toRaw(animationX[cardSlideDirection]); y = toRaw(animationY[cardSlideDirection])"
+                                      icon="keyboard_arrow_down"
                                       label="Bottom"/>
                         <q-fab-action :hide-label="!hideLabels" padding="xs" external-label label-position="top"
-                                      color="accent" @click="cardSlideDirection='left'" icon="keyboard_arrow_left"
+                                      color="accent"
+                                      @click="cardSlideDirection='left' ; x = toRaw(animationX[cardSlideDirection]); y = toRaw(animationY[cardSlideDirection])"
+                                      icon="keyboard_arrow_left"
                                       label="Left"/>
                     </q-fab>
                     <br>
@@ -273,6 +344,16 @@ onMounted(() => {
     </div>
 </template>
 <style lang="scss" scoped>
+.q-img__content {
+    & > div {
+        padding-top: 40px;
+    }
+    & div {
+        &:not(.open) {
+            background: none;
+        }
+    }
+}
 
 .card {
     text-transform: Capitalize;
@@ -280,7 +361,6 @@ onMounted(() => {
 
     &-box {
         border-radius: 10px;
-        background-color: var(--bg-accent-glass);
 
         &-settings {
             overflow: hidden;
@@ -290,12 +370,17 @@ onMounted(() => {
     &-avatar {
         width: 100%;
         height: 60vh;
-        min-height: 240px;
-        max-height: 400px;
+        min-height: 250px;
+        max-height: 450px;
+        @media screen and (max-width: 900px) {
+            min-height: 250px;
+            max-height: 400px;
+        }
     }
 
     &-content {
         word-break: break-word;
+
         &-absolute {
             &-top {
                 top: 0;
@@ -321,8 +406,9 @@ onMounted(() => {
         }
     }
 }
+
 .span-2 {
-    grid-column-end: span 2;
+    grid-column-end: span 1;
 }
 
 .span-3 {

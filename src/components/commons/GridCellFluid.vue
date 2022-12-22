@@ -1,33 +1,30 @@
 <script setup lang="ts">
-import {ref, onMounted} from 'vue'
+import {onMounted, ref} from 'vue'
 import {scroll} from 'quasar'
-import Scrollbar from 'smooth-scrollbar';
-import {spring} from "motion"
-import {Motion, Presence} from "@motionone/vue";
 
-const val = ref(false)
-const root = ref(null)
-const milisegundos = ref(2000)
-const milisegundosCss = ref(`${milisegundos.value}ms`)
-const imgCss = ref(null)
+const val :any = ref(false)
+const root :any = ref(null)
+const milisegundos :any = ref(2000)
+const milisegundosCss :any = ref(`${milisegundos.value}ms`)
+const imgCss :any = ref(null)
 
-const actualTopPositionCss = ref(getRndInteger(5, 90) + '%')
-const actualLeftPositionCss = ref(getRndInteger(5, 90) + '%')
-const randomTopPositionCss = ref(getRndInteger(5, 90) + '%')
-const randomLeftPositionCss = ref(getRndInteger(5, 90) + '%')
-const random2TopPositionCss = ref(getRndInteger(25, 80) + '%')
-const random2LeftPositionCss = ref(getRndInteger(25, 80) + '%')
-const animationClass = ['swing1', 'swing2']
+const actualTopPositionCss :any = ref(getRndInteger(5, 90) + '%')
+const actualLeftPositionCss :any = ref(getRndInteger(5, 90) + '%')
+const randomTopPositionCss :any = ref(getRndInteger(5, 90) + '%')
+const randomLeftPositionCss :any = ref(getRndInteger(5, 90) + '%')
+const random2TopPositionCss :any = ref(getRndInteger(25, 80) + '%')
+const random2LeftPositionCss :any = ref(getRndInteger(25, 80) + '%')
+const animationClass :any = ['swing1', 'swing2']
 
-const randomSize1 = ref(getRndInteger(50, 385) + 'px')
-const randomSize2 = ref(getRndInteger(50, 385) + 'px')
-const randomSize3 = ref(getRndInteger(50, 385) + 'px')
-const randomSize4 = ref(getRndInteger(50, 385) + 'px')
-const randomSize5 = ref(getRndInteger(50, 385) + 'px')
-const randomSize6 = ref(getRndInteger(50, 385) + 'px')
-const randomSize7 = ref(getRndInteger(50, 385) + 'px')
-const randomSize8 = ref(getRndInteger(50, 385) + 'px')
-const beatSize1 = ref('150px')
+const randomSize1 :any = ref(getRndInteger(50, 385) + 'px')
+const randomSize2 :any = ref(getRndInteger(50, 385) + 'px')
+const randomSize3 :any = ref(getRndInteger(50, 385) + 'px')
+const randomSize4 :any = ref(getRndInteger(50, 385) + 'px')
+const randomSize5 :any = ref(getRndInteger(50, 385) + 'px')
+const randomSize6 :any = ref(getRndInteger(50, 385) + 'px')
+const randomSize7 :any = ref(getRndInteger(50, 385) + 'px')
+const randomSize8 :any = ref(getRndInteger(50, 385) + 'px')
+const beatSize1 :any = ref('150px')
 
 interface Props {
     image?: string,
@@ -37,13 +34,13 @@ interface Props {
 
 const props = defineProps<Props>()
 
-function getRndInteger(min, max) {
+function getRndInteger(min :any, max :any) {
     return Math.floor(Math.random() * (max - min)) + min;
 }
 
 const {getScrollTarget, setVerticalScrollPosition} = scroll
 
-const resizeElement = (event) => {
+const resizeElement = (event :any) => {
 
     val.value = !val.value
     setTimeout(
@@ -57,7 +54,7 @@ const resizeElement = (event) => {
         , 100);
 }
 
-const mouseMove = (event) => {
+const mouseMove = (event :any) => {
     //currentTarget
     const elCell = event.target.closest('.grid-cell')
     const elDragable = elCell.querySelector('.dragableHover')
@@ -74,7 +71,7 @@ const mouseMove = (event) => {
     // console.log(event.clientY - rect.top)
 
 }
-const mouseEnter = (event) => {
+const mouseEnter = (event :any) => {
     const elCell = event.target.closest('.grid-cell')
     const elDragable = elCell.querySelector('.dragableHover')
 
@@ -85,7 +82,7 @@ const mouseEnter = (event) => {
 
     elDragable.classList.add('shake')
 }
-const mouseLeave = (event) => {
+const mouseLeave = (event :any) => {
     const elCell = event.target.closest('.grid-cell')
     const elDragable = elCell.querySelector('.dragableHover')
     const rect = elCell.getBoundingClientRect()
@@ -100,11 +97,15 @@ const mouseLeave = (event) => {
     elDragable.classList.add(animationClass[getRndInteger(0, 2)])
 }
 
-const mouseDown = () => {
-    const elCell = event.target.closest('.grid-cell')
+const mouseDown = (event:any) => {
+    let elCell: any;
+    let target: any;
+    ({target} = event);
+    const {closest} = target;
+    elCell = closest('.grid-cell');
     const elDragable = elCell.querySelector('.dragableHover')
 
-    console.log(elDragable.addEventListener("animationend", (el) => {
+    console.log(elDragable.addEventListener("animationend", (el: any) => {
         console.log(el)
     }));
 
@@ -113,15 +114,24 @@ const mouseDown = () => {
     elDragable.classList.add('beat')
 }
 
-const mouseUp = () => {
-    const elCell = event.target.closest('.grid-cell')
+const mouseUp = (event: any) => {
+
+    let elCell: any;
+    let closest: any;
+    let target: any;
+    ({target} = event );
+    ({closest} = target);
+    elCell = closest('.grid-cell');
     const elDragable = elCell.querySelector('.dragableHover')
 
     elDragable.classList.remove('beat')
 }
 onMounted(() => {
 
-    imgCss.value = `url(https://picsum.photos/10${root.value.__vueParentComponent.uid}/10${root.value.__vueParentComponent.uid})`
+    let __vueParentComponent: any;
+    ({__vueParentComponent} = root.value);
+    const {uid} = __vueParentComponent;
+    imgCss.value = `url(https://picsum.photos/10${uid}/10${uid})`
 
 })
 </script>
@@ -256,7 +266,7 @@ onMounted(() => {
                 v-if="image != null"
                 :src="image"
                 class="grid-cell-image"
-                loading
+                loading="lazy"
                 placeholder-src=""
             />
         </div>
