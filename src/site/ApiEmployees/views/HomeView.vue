@@ -164,7 +164,7 @@ const typeCardPosition = (pName) => {
                           :salary="salary" :age="age" :address="address"
                           :imageUrl="`https://api.lorem.space/image/face?w=1${(id +  1 ) > 10 ? id : '0'+id}`"
                           :dob="dob"
-                          :category="`${employeesCategory[Math.floor(Math.random() * (employeesCategory.length - 0 + 1) ) + 0]}`"
+                          :category="`${employeesCategory[Math.floor(Math.random() * (employeesCategory.length))]}`"
                           :key="`${id}-default`">
             </EmployeeCard>
             <EmployeeCardInline
@@ -175,7 +175,7 @@ const typeCardPosition = (pName) => {
                 :salary="salary" :age="age" :address="address"
                 :imageUrl="`https://api.lorem.space/image/face?w=1${(id +  1 ) > 10 ? id : '0'+id}`"
                 :dob="dob"
-                :category="`${employeesCategory[Math.floor(Math.random() * (employeesCategory.length - 0 + 1) ) + 0]}`"
+                :category="`${employeesCategory[Math.floor(Math.random() * (employeesCategory.length))]}`"
                 :key="`${id}-minimal`">
             </EmployeeCardInline>
         </div>
@@ -187,7 +187,7 @@ const typeCardPosition = (pName) => {
                                :salary="salary" :age="age" :address="address"
                                :imageUrl="`https://api.lorem.space/image/face?w=4${(id +  1 ) > 10 ? id : '0'+id}`"
                                :dob="dob"
-                               :category="`${employeesCategory[Math.floor(Math.random() * (employeesCategory.length - 0 + 1) ) + 0]}`"
+                               :category="`${employeesCategory[Math.floor(Math.random() * (employeesCategory.length))]}`"
                                :key="`${id}-default`">
 
             </EmployeeCardSlide>

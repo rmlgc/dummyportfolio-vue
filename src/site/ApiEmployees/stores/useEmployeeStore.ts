@@ -1,7 +1,7 @@
 import {defineStore} from 'pinia'
 
 const totalEmployees = 800
-const rows = 10
+const rows = 100
 
 export const useEmployeeStore = defineStore({
     id: 'Employee',
