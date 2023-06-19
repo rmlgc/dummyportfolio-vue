@@ -162,7 +162,7 @@ const typeCardPosition = (pName) => {
                           :id="id" :lastName="lastName" :firstName="firstName" :email="email"
                           :contactNumber="contactNumber"
                           :salary="salary" :age="age" :address="address"
-                          :imageUrl="`https://api.lorem.space/image/face?w=1${(id +  1 ) > 10 ? id : '0'+id}`"
+                          :imageUrl="`${imageUrl}`"
                           :dob="dob"
                           :category="`${employeesCategory[Math.floor(Math.random() * (employeesCategory.length))]}`"
                           :key="`${id}-default`">
@@ -173,7 +173,7 @@ const typeCardPosition = (pName) => {
                 :id="id" :lastName="lastName" :firstName="firstName" :email="email"
                 :contactNumber="contactNumber"
                 :salary="salary" :age="age" :address="address"
-                :imageUrl="`https://api.lorem.space/image/face?w=1${(id +  1 ) > 10 ? id : '0'+id}`"
+                :imageUrl="`${imageUrl}`"
                 :dob="dob"
                 :category="`${employeesCategory[Math.floor(Math.random() * (employeesCategory.length))]}`"
                 :key="`${id}-minimal`">
@@ -185,7 +185,7 @@ const typeCardPosition = (pName) => {
                                :id="id" :lastName="lastName" :firstName="firstName" :email="email"
                                :contactNumber="contactNumber"
                                :salary="salary" :age="age" :address="address"
-                               :imageUrl="`https://api.lorem.space/image/face?w=4${(id +  1 ) > 10 ? id : '0'+id}`"
+                               :imageUrl="`${imageUrl}`"
                                :dob="dob"
                                :category="`${employeesCategory[Math.floor(Math.random() * (employeesCategory.length))]}`"
                                :key="`${id}-default`">
