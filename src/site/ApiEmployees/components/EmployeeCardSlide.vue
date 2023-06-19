@@ -106,7 +106,7 @@ onMounted(() => {
 </script>
 <template>
     <div class="card" :class=" `${open ? 'span-2' : ''}`">
-        <Presence>
+        <Presence style="position: relative;">
             <Motion
                 class="card-box"
                 :initial="{}"
@@ -276,17 +276,17 @@ onMounted(() => {
                     </div>
                 </q-img>
                 <q-btn v-if="cardSlideDirection == 'top'"
-                       :icon="`keyboard_arrow_${cardSlideDirection == 'top'  ? 'up' : ''}`"
+                       :icon="`${showCardContent ? 'close': 'keyboard_arrow_'+cardSlideDirection == 'top'  ? 'up' : ''}`"
                        label="" @click="showCardContent=!showCardContent; open=false;"
                        square text-color="primary" class="absolute-bottom bg-glass--white"></q-btn>
-                <q-btn v-if="cardSlideDirection == 'right'" :icon="`keyboard_arrow_${cardSlideDirection }`"
+                <q-btn v-if="cardSlideDirection == 'right'" :icon="`${showCardContent ? 'close': 'keyboard_arrow_'+cardSlideDirection}`"
                        label="" @click="showCardContent=!showCardContent; open=false;"
                        square text-color="primary" class="absolute-top q-mt-sm bg-glass--white"></q-btn>
                 <q-btn v-if="cardSlideDirection == 'bottom'"
-                       :icon="`keyboard_arrow_${cardSlideDirection == 'bottom'  ? 'down' : ''}`"
+                       :icon="`${showCardContent ? 'close': 'keyboard_arrow_'+cardSlideDirection == 'bottom'  ? 'down' : ''}`"
                        label="" @click="showCardContent=!showCardContent; open=false;"
                        square text-color="primary" class="absolute-top q-mt-sm bg-glass--white"></q-btn>
-                <q-btn v-if="cardSlideDirection == 'left'" :icon="`keyboard_arrow_${cardSlideDirection}`"
+                <q-btn v-if="cardSlideDirection == 'left'" :icon="`${showCardContent ? 'close': 'keyboard_arrow_'+cardSlideDirection}`"
                        label="" @click="showCardContent=!showCardContent; open=false;"
                        square text-color="primary" class="absolute-top q-mt-sm bg-glass--white"></q-btn>
             </Motion>
@@ -358,6 +358,7 @@ onMounted(() => {
 .card {
     text-transform: Capitalize;
     overflow: hidden;
+    position: relative;
 
     &-box {
         border-radius: 10px;
