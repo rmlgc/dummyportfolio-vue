@@ -249,11 +249,11 @@ const onLoad = (index, done)=> {
     grid-auto-flow: dense;
     padding: 1px;
     @media screen and (max-width: 1500px) {
-        grid-template-columns: repeat(auto-fill, minmax(400px, 1fr));
-        grid-template-columns: repeat(auto-fill, minmax(400px, 1fr));
+        grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
     }
-    @media screen and (max-width: 800px) {
+    @media screen and (max-width: 700px) {
         grid-template-columns: repeat(auto-fill, minmax(100%, 1fr));
+        grid-auto-rows: minmax(150px, auto);
     }
 }
 
