@@ -13,7 +13,7 @@ const resetTimerMax = ref(10000)
 
 const props = defineProps(
     {
-        id: Number,
+        id: String,
         lastName: String,
         firstName: String,
         email: String,

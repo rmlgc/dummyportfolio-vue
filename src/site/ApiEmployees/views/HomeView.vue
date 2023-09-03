@@ -64,6 +64,15 @@ const typeCardPosition = (pName) => {
         typeCardIndex.value = value
     }
 }
+const items = ref([ {}, {}, {}, {}, {}, {}, {} ])
+const onLoad = (index, done)=> {
+        // setTimeout(() => {
+        //   items.value.push({}, {}, {}, {}, {}, {}, {})
+        //   done()
+        // }, 2000)
+        fetchEmployees()
+        done()
+      }
 
 </script>
 <template>
@@ -156,42 +165,49 @@ const typeCardPosition = (pName) => {
         </p>
         <q-separator/>
         <br>
-        <div class="employee-list q-pt-xs">
-            <EmployeeCard v-show="typeCard[typeCardIndex].card=='minimal' && showEmployee(firstName, lastName)"
-                          v-for="{id, lastName, firstName, email, contactNumber, salary, age, address, imageUrl ,dob} in employees"
-                          :id="id" :lastName="lastName" :firstName="firstName" :email="email"
-                          :contactNumber="contactNumber"
-                          :salary="salary" :age="age" :address="address"
-                          :imageUrl="`${imageUrl}`"
-                          :dob="dob"
-                          :category="`${employeesCategory[Math.floor(Math.random() * (employeesCategory.length))]}`"
-                          :key="`${id}-default`">
-            </EmployeeCard>
-            <EmployeeCardInline
-                v-show="typeCard[typeCardIndex].card=='minimal-inline' && showEmployee(firstName, lastName)"
-                v-for="{id, lastName, firstName, email, contactNumber, salary, age, address, imageUrl ,dob} in employees"
-                :id="id" :lastName="lastName" :firstName="firstName" :email="email"
-                :contactNumber="contactNumber"
-                :salary="salary" :age="age" :address="address"
-                :imageUrl="`${imageUrl}`"
-                :dob="dob"
-                :category="`${employeesCategory[Math.floor(Math.random() * (employeesCategory.length))]}`"
-                :key="`${id}-minimal`">
-            </EmployeeCardInline>
-        </div>
-        <div v-show="typeCard[typeCardIndex].card=='slide'" class="masonry-with-columns">
-            <EmployeeCardSlide v-show="showEmployee(firstName, lastName)"
-                               v-for="{id, lastName, firstName, email, contactNumber, salary, age, address, imageUrl ,dob} in employees"
-                               :id="id" :lastName="lastName" :firstName="firstName" :email="email"
-                               :contactNumber="contactNumber"
-                               :salary="salary" :age="age" :address="address"
-                               :imageUrl="`${imageUrl}`"
-                               :dob="dob"
-                               :category="`${employeesCategory[Math.floor(Math.random() * (employeesCategory.length))]}`"
-                               :key="`${id}-default`">
+        <q-infinite-scroll @load="onLoad" :offset="250">
+            <div class="employee-list q-pt-xs">
+                <EmployeeCard v-show="typeCard[typeCardIndex].card=='minimal' && showEmployee(employe.name.first, employe.name.last)"
+                            v-for="employe in employees"
+                            :id="employe.id.value" :lastName="employe.name.last" :firstName="employe.name.first" :email="employe.email"
+                            :contactNumber="employe.phone"
+                            :salary="1000" :age="employe.dob.age" :address="`${employe.location.street.name} ${employe.location.street.number}, ${employe.location.city}, ${employe.location.state}, ${employe.location.postcode}, ${employe.location.country}`"
+                            :imageUrl="`${employe.picture.large}`"
+                            :dob="employe.dob.date"
+                            :category="`${employeesCategory[Math.floor(Math.random() * (employeesCategory.length))]}`"
+                            :key="`${employe.id.value}-minimal`">
+                </EmployeeCard>
+                <EmployeeCardInline
+                    v-show="typeCard[typeCardIndex].card=='minimal-inline' && showEmployee(employe.name.first, employe.name.last)"
+                    v-for ="employe in employees"
+                    :id="employe.id.value" :lastName="employe.name.last" :firstName="employe.name.first" :email="employe.email"
+                    :contactNumber="employe.phone"
+                    :salary="1000" :age="employe.dob.age" :address="`${employe.location.street.name} ${employe.location.street.number}, ${employe.location.city}, ${employe.location.state}, ${employe.location.postcode}, ${employe.location.country}`"
+                    :imageUrl="`${employe.picture.large}`"
+                    :dob="employe.dob.date"
+                    :category="`${employeesCategory[Math.floor(Math.random() * (employeesCategory.length))]}`"
+                    :key="`${employe.id.value}-inline`">
+                </EmployeeCardInline>
+            </div>
+            <div v-show="typeCard[typeCardIndex].card=='slide'" class="masonry-with-columns">
+                <EmployeeCardSlide v-show="showEmployee(employe.name.first, employe.name.last)"
+                                v-for="employe in employees"
+                                :id="employe.id.value" :lastName="employe.name.last" :firstName="employe.name.first" :email="employe.email"
+                                :contactNumber="employe.phone"
+                                :salary="1000" :age="employe.dob.age" :address="`${employe.location.street.name} ${employe.location.street.number}, ${employe.location.city}, ${employe.location.state}, ${employe.location.postcode}, ${employe.location.country}`"
+                                :imageUrl="`${employe.picture.large}`"
+                                :dob="employe.dob.date"
+                                :category="`${employeesCategory[Math.floor(Math.random() * (employeesCategory.length))]}`"
+                                :key="`${employe.id.value}-default`">
 
-            </EmployeeCardSlide>
-        </div>
+                </EmployeeCardSlide>
+            </div>
+            <template v-slot:loading>
+                <div class="row justify-center q-my-md">
+                <q-spinner-dots color="primary" size="40px" />
+                </div>
+            </template>
+        </q-infinite-scroll>
     </div>
     <div v-if="!loading && $q.screen.gt.sm"
          class="employee-filter bg-glass--white-dense bg-glass--slim q-px-lg shadow-up-2">
