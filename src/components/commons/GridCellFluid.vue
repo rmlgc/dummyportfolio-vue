@@ -102,16 +102,18 @@ const mouseDown = (event:any) => {
     let target: any;
     ({target} = event);
     const {closest} = target;
-    elCell = closest('.grid-cell');
-    const elDragable = elCell.querySelector('.dragableHover')
+    // console.log(target);
+    // elCell = closest('.grid-cell');
+    // console.log(elCell);
+    // const elDragable = elCell.querySelector('.dragableHover')
 
-    console.log(elDragable.addEventListener("animationend", (el: any) => {
-        console.log(el)
-    }));
+    // console.log(elDragable.addEventListener("animationend", (el: any) => {
+    //     console.log(el)
+    // }));
 
-    beatSize1.value = elDragable.style.height
+    // beatSize1.value = elDragable.style.height
 
-    elDragable.classList.add('beat')
+    // elDragable.classList.add('beat')
 }
 
 const mouseUp = (event: any) => {
@@ -121,10 +123,10 @@ const mouseUp = (event: any) => {
     let target: any;
     ({target} = event );
     ({closest} = target);
-    elCell = closest('.grid-cell');
-    const elDragable = elCell.querySelector('.dragableHover')
+    // elCell = closest('.grid-cell');
+    // const elDragable = elCell.querySelector('.dragableHover')
 
-    elDragable.classList.remove('beat')
+    // elDragable.classList.remove('beat')
 }
 onMounted(() => {
 
