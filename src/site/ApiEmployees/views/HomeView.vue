@@ -17,6 +17,7 @@ const filterText = ref('')
 const regxFilterText = ref('Asd cono')
 const asd = ref('Asd cono')
 const open = ref(false)
+const loadingScroll = ref(true)
 const typeCard = reactive([
     {
         card: 'slide',
@@ -66,12 +67,14 @@ const typeCardPosition = (pName) => {
 }
 const items = ref([ {}, {}, {}, {}, {}, {}, {} ])
 const onLoad = (index, done)=> {
-        // setTimeout(() => {
+    loadingScroll.value = true;
+    setTimeout(() => {
         //   items.value.push({}, {}, {}, {}, {}, {}, {})
         //   done()
-        // }, 2000)
-        fetchEmployees()
-        done()
+    }, 2000)
+    fetchEmployees()
+    done()
+    // loadingScroll.value = false;
       }
 
 </script>
@@ -202,11 +205,10 @@ const onLoad = (index, done)=> {
 
                 </EmployeeCardSlide>
             </div>
-            <template v-slot:loading>
-                <div class="row justify-center q-my-md">
+            <div v-show="loadingScroll" class="row justify-center q-my-md">
                 <q-spinner-dots color="primary" size="40px" />
-                </div>
-            </template>
+            </div>
+
         </q-infinite-scroll>
     </div>
     <div v-if="!loading && $q.screen.gt.sm"

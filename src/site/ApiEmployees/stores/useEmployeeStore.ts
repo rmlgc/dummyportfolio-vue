@@ -36,7 +36,6 @@ export const useEmployeeStore = defineStore({
                 .then((response) => response.json())
                 this.employeesAll = fetchedEmployeesAll.results
                 this.employees.push(... fetchedEmployeesAll.results)
-                console.table(this.employeesAll);
                 this.loading = false;
 
         }
